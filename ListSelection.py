@@ -12,7 +12,9 @@ strResetStage = 'ResetStage'
 strSelectText = 'SelectText'
 strNewActiveList = 'NewActiveList'
 
-areas = {}
+areas = {} #key: List; 
+           #value1: reactiontime of correct items including timeouts; 
+           #value2: list of 1/0. 1 = correct w/o timeout; 0 = correct w/ timeout
 
 
 def CreateTriples(tripels):
@@ -42,6 +44,7 @@ def CreateTriples(tripels):
     tripels.update({'23' : ['Milk', 'Dog', 'Grass']})
 
 def WriteAreaResults():
+    #todo transform area results in array and print this array to csv
     with open('LS_AreaStats.csv', 'w', newline='') as csvfile:
         filewriterAreaStats = csv.writer(csvfile, delimiter=';', quoting=csv.QUOTE_MINIMAL)
         res = ''
@@ -205,6 +208,6 @@ def LS_CalcCountErrorAndCorrect(spamreader_var, filewriter_LS_Counts):
     filewriter_LS_Counts.writerow(rowtowrite)       
     
     
-    PrintAreaResults()
+    #PrintAreaResults()
     WriteAreaResults()
     

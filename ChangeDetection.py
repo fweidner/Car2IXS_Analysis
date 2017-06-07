@@ -28,6 +28,7 @@ def GetResponseTimesForCorrectValues(spamreader_var):
     tmp_t_response=0
     
     for tmprow in spamreader_var:
+      print (tmprow)
     #calc response time
       if (bShouldCalcTime):  
           CalcTime(tmp_t1, tmp_t_response, responsetimes_cd)
