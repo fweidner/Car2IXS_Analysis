@@ -11,7 +11,6 @@ import ListSelection
 import DistanceKeeping
 import os
 
-strName = ''
 
 def SkipHeader(spamreader): 
     next(spamreader)
@@ -25,81 +24,147 @@ def SkipHeader(spamreader):
     next(spamreader)
     next(spamreader)
 
-def Calculate_LS_UI_Stats(file, filewriter):
+def CalcListStats(file, name, con):
     #with open ('CD_2017.06.01-13.06.39.csv', 'r') as csvfile:
     with open (file, 'r') as csvfile:
+        #print (file)
         fieldnames = ["timestamp", "A", "B", "C"]
         spamreader = csv.DictReader(csvfile, fieldnames, delimiter=';')
 
         SkipHeader(spamreader)
         #ResponseTimesFunctions.GetResponseTimesForCorrectValues(spamreader)
-        ListSelection.LS_CalcCountErrorAndCorrect(spamreader, filewriter_LS_Counts)
+        ListSelection.CalcListStats(spamreader, con)
 
-def Calculate_DistanceKeeping_C2S_Stats(file, name = 'defaultname'):
+#calculates mean values, stdev for distance and times in and out of target distance zone
+def Calculate_DistanceKeeping_C2S_Stats(file, name = 'defaultname', condition_var = '', task=''):
      with open (file, 'r') as csvfile:
         fieldnames = ["timestamp", "A", "B", "C"]
         spamreader = csv.DictReader(csvfile, fieldnames, delimiter=';')
         SkipHeader(spamreader)
-        DistanceKeeping.CalcDistanceStats(spamreader, name)
+        DistanceKeeping.CalcDistanceStats(spamreader, name, condition_var, task)
       
-##################################################
+        #                   CalcCDStats(file, name, con)
 
+def CalcCDStats(file, name ='', condition_var=''):
+    with open (file, 'r') as csvfile:
+        fieldnames = ["timestamp", "A", "B", "C"]
+        spamreader = csv.DictReader(csvfile, fieldnames, delimiter=';')
+        SkipHeader(spamreader)
+        ChangeDetection.GetResponseTimesForCorrectValues(spamreader,name,condition_var)
+    
+        
+        
+##################################################
+##################################################
 
 #path = r'C:\Users\flarion\CloudStation\Study\Car2IXS_Analysis'
 
-def CalcDistance(path):
+def CalcDistance(path, con, strTask):
+    print()
+    print('Calculating Distance!')
     CountExecution =0
     for (path, dirs, files) in os.walk(path):
         #print ('Path:', path)
         splits = path.split(sep='\\')
         splits_len = len(splits)
         name = splits[splits_len-1]
-        #print (name)
+        con = splits[splits_len-2]
+        #print (name + ' : ' + con)
+        
         for f in files:
-         
-            if ('LS' in f):
-                file = path+'\\'+f
-                b = os.path.getsize(file)
-                if (b<20000):
-         
-                    #Calculate_LS_UI_Stats(file, filewriter_LS_Counts)
-                    CountExecution +=1
-                else:
-                    Calculate_DistanceKeeping_C2S_Stats(file, name)
-                    break
-            
+            file = path+'\\'+f
+            b = os.path.getsize(file)
+            if (b>20000):
+                if (strTask in f):
+                    Calculate_DistanceKeeping_C2S_Stats(file, name, con, strTask)
+                    CountExecution+=1    
     
-        print ('----')
+        #print ('----')
     
-    DistanceKeeping.ReduceDistanceStats()
+    DistanceKeeping.CalcDistancesStatPerParticipant()
+    #DistanceKeeping.PrintTimes()
+    #DistanceKeeping.PrintMeanDistances()
+    DistanceKeeping.CalcOverallDistanceStats()
+    DistanceKeeping.PrintOverallDistanceStats(con, strTask)
+    DistanceKeeping.CalcAndPrintOverallTimeStats()
+    print()
+    
+def CalcListSelection(path):
+    print()
+    print('Calculating List Selection Performance!')
+    CountExecution =0
+    for (path, dirs, files) in os.walk(path):
+        #print ('Path:', path)
+        splits = path.split(sep='\\')
+        splits_len = len(splits)
+        name = splits[splits_len-1]
+        con = splits[splits_len-2]
+        #print (name + ' : ' + con)
+        
+        for f in files:
+            file = path+'\\'+f
+            b = os.path.getsize(file)
+            if (b<20000):
+                if ('LS' in f):
+                    CalcListStats(file, name, con)
+                    CountExecution+=1    
+    
+        #print ('----')
 
+    ListSelection.CalcAreaResults()
+    ListSelection.CalcAreaStats(con, 'LS')
+    
+def CalcChangeDetection(path):
+    print()
+    print('Calculating Change Detection Performance!')
+    
+    CountExecution =0
+    
+    ChangeDetection.Reset()
+    
+    for (path, dirs, files) in os.walk(path):
+       #print ('Path:', path)
+       splits = path.split(sep='\\')
+       splits_len = len(splits)
+       name = splits[splits_len-1]
+       con = splits[splits_len-2]
+       #print (name + ' : ' + con)
+       
+       for f in files:
+           file = path+'\\'+f
+           b = os.path.getsize(file)
+           if (b<20000):
+               if ('CD' in f):
+                   CalcCDStats(file, name, con)
+                   CountExecution+=1    
+    
+       #print ('----')
 
-#with open('LS_CalcCounts.csv', 'w', newline='') as csvfile:
-#    filewriter_LS_Counts = csv.writer(csvfile, delimiter=';')
-#    file = r'C:\Users\flarion\CloudStation\Study\Car2IXS_Analysis\LS_2017.06.06-17.27.21.csv'
-#    with open (file, 'r') as csvfile:
-#        fieldnames = ["timestamp", "A", "B", "C"]
-#        spamreader = csv.DictReader(csvfile, fieldnames, delimiter=';')
-#        SkipHeader(spamreader)
-#    
-#        Calculate_LS_UI_Stats(file, filewriter_LS_Counts)
-
-#file = r'C:\Users\flarion\CloudStation\Study\Car2IXS_Analysis\CD_2017.06.06-17.03.38.csv'
-#with open (file, 'r') as csvfile:
-#    fieldnames = ["timestamp", "A", "B", "C"]
-#    spamreader = csv.DictReader(csvfile, fieldnames, delimiter=';')
-#    SkipHeader(spamreader)
-#
-#    ChangeDetection.GetResponseTimesForCorrectValues(spamreader)
-
+    #ChangeDetection.PrintGlobalResponseTimes()
+    ChangeDetection.CalcGlobalResponseTimeStats()
+    ChangeDetection.PrintGlobalResponseTimeStats()
+    ChangeDetection.CalcAndPrintGlobalCountStats()
+    
 ##################################################
-path = r'C:\Users\flarion\CloudStation\Study\Logs' 
-CalcDistance(path)
-        
-        
 
-        
-        
-        
-        
+print ('########### 3D List #############')
+path = r'C:\Users\flarion\CloudStation\Study\LogsWD\3D' 
+#CalcDistance(path, '3D', 'LS')
+CalcListSelection(path)
+
+print ('########### 2D List #############')
+#path = r'C:\Users\flarion\CloudStation\Study\Logs\2D' 
+#CalcDistance(path, '2D', 'LS')
+#CalcListSelection(path)
+
+print ('########### 3D Change #############')
+path = r'C:\Users\flarion\CloudStation\Study\Logs\3D' 
+#CalcDistance(path, '2D', 'CD')
+#CalcChangeDetection(path)
+
+print ('########### 2D Change #############')
+path = r'C:\Users\flarion\CloudStation\Study\Logs\2D' 
+#CalcDistance(path, '2D', 'CD')
+#CalcChangeDetection(path)
+
 
