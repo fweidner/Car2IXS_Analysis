@@ -33,7 +33,7 @@ def CalcListStats(file, name, con):
 
         SkipHeader(spamreader)
         #ResponseTimesFunctions.GetResponseTimesForCorrectValues(spamreader)
-        ListSelection.CalcListStats(spamreader, con)
+        ListSelection.CalcListStats(spamreader, con, name)
 
 #calculates mean values, stdev for distance and times in and out of target distance zone
 def Calculate_DistanceKeeping_C2S_Stats(file, name = 'defaultname', condition_var = '', task=''):
@@ -111,8 +111,18 @@ def CalcListSelection(path):
     
         #print ('----')
 
-    ListSelection.CalcAreaResults()
-    ListSelection.CalcAreaStats(con, 'LS')
+    ListSelection.PrepareForAreaCalculation()
+    
+    ListSelection.CalcAreaStats(con)
+    ListSelection.PrintAreaStats(con)
+    
+    ListSelection.CalcGlobalStats()
+    ListSelection.PrintGlobalStats()
+    
+    ListSelection.CalcGlobalMeanCountValues()
+    ListSelection.PrintGlobalMeanCountValues()
+    ListSelection.Reset()
+
     
 def CalcChangeDetection(path):
     print()
@@ -149,14 +159,14 @@ def CalcChangeDetection(path):
 ##################################################
 
 print ('########### 3D List #############')
-#path = r'C:\Users\flarion\CloudStation\Study\Logs\3D' 
+path = r'C:\Users\flarion\CloudStation\Study\Logs\3D' 
 #CalcDistance(path, '3D', 'LS')
-#CalcListSelection(path)
+CalcListSelection(path)
 
 print ('########### 2D List #############')
-#path = r'C:\Users\flarion\CloudStation\Study\Logs\2D' 
+path = r'C:\Users\flarion\CloudStation\Study\Logs\2D' 
 #CalcDistance(path, '2D', 'LS')
-#CalcListSelection(path)
+CalcListSelection(path)
 
 print ('########### 3D Change #############')
 path = r'C:\Users\flarion\CloudStation\Study\Logs\3D' 
