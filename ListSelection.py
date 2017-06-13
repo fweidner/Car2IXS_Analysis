@@ -43,6 +43,9 @@ area_mean_stdev = {}
 
 count_people = 0
 
+globalareacountstats = {}       #name [ul_c, ul_i, ul_t, [], uc_c, uc_i, uc_t, [], ur_c, ur_i, ur_t, [], dr_c, dr_i, dr_t, []]}
+
+
 def Reset():
     global name_performance
     global area_ul
@@ -55,6 +58,8 @@ def Reset():
     global areas_divided
     global count_people
     global areas
+    global globalareacountstats
+    
     name_performance = {}
     
     area_ul = {}
@@ -68,6 +73,7 @@ def Reset():
 
     count_people = 0
     areas = {} 
+    globalareacountstats = {}
     
 def CreateTriples(tripels):
     tripels.update({'0' : ['Juice', 'Dog', 'Flower']})
@@ -319,46 +325,144 @@ def CalcGlobalMeanCountValues():
     name_performance_stats.update({'EWT Mean ' : [mean_ewt, stdev_ewt, normality_ewt]})
     name_performance_stats.update({'EWOT Mean' : [mean_ewot, stdev_ewot, normality_ewot]})
     name_performance_stats.update({'CWT Mean ' : [mean_cwt, stdev_cwt, normality_cwt]})
-#    print (len(tmpCountCorrectWithoutTimeoutList))
-#    print (tmpCountCorrectWithoutTimeoutList)
-#    print (str(meancwot) + ' : ' + str(stdevcwot) + ' : ' +str(normalitycwot))
-#    
-#    
-#    print ()
-#    print (len(tmpCountErrorWithTimeoutList))
-#    print (tmpCountErrorWithTimeoutList)
-#    print (str(mean_ewt) + ' : ' + str(stdev_ewt) + ' : ' +str(normality_ewt))
-#    
-#    print()
-#    print (len(tmpCountCorrectWithoutTimeoutList))
-#    print (tmpCountCorrectWithoutTimeoutList)
-#    print (str(mean_ewot) + ' : ' + str(stdev_ewot) + ' : ' +str(normality_ewot))
-#    
-#    print ()
-#    print (len(tmpCountCorrectWithTimeout))
-#    print (tmpCountCorrectWithTimeout)
-#    print (str(mean_cwt) + ' : ' + str(stdev_cwt) + ' : ' +str(normaliy_cwt))
-#       
-#    print ()
-# 
 
 def PrintGlobalMeanCountValues():
     print ('\tGlobal count stats:')
     for item in name_performance_stats:
         print ('\t\t'+item + ' : ' + str(name_performance_stats[item]))
+
+    
+def UpdateAreaStatsForLocal(areas, BP_name, responsetime, isCorrect, name):
+    #print (name)    
+    global globalareacountstats #name [ul_c, ul_i, ul_t, [], uc_c, uc_i, uc_t, [], ur_c, ur_i, ur_t, [], dr_c, dr_i, dr_t, []]}
+    global area_uc
+    global area_ul
+    global area_dr
+    global area_ur
+    CreateAreas()
+    #print (str(area_ul.keys()))
+    
+    if (BP_name in area_ul.keys()):
+        if (name not in globalareacountstats.keys()):
+            globalareacountstats.update({name: [0,0,0,[],0,0,0,[],0,0,0,[],0,0,0,[]]})
+        if (isCorrect == 1):
+            globalareacountstats.get(name)[0]+=1
+        elif (isCorrect == 0):
+            globalareacountstats.get(name)[1]+=1
+        elif (isCorrect == 2):
+            globalareacountstats.get(name)[2]+=1
         
-def UpdateAreaStats(areas, BP_name, responsetime, isCorrect):
-    #print (BP_name)
-    if (BP_name not in areas.keys()):
-      areas.update({BP_name : [[responsetime], [isCorrect]]})
+        globalareacountstats.get(name)[3].append(responsetime)     
+    elif (BP_name in area_uc.keys()):
+        #print ('yayuc')   
+        if (name not in globalareacountstats.keys()):
+            globalareacountstats.update({name: [0,0,0,[],0,0,0,[],0,0,0,[],0,0,0,[]]})
+        
+        if (isCorrect == 1):
+            globalareacountstats.get(name)[4]+=1
+        elif (isCorrect == 0):
+            globalareacountstats.get(name)[5]+=1
+        elif (isCorrect == 2):
+            globalareacountstats.get(name)[6]+=1
+        globalareacountstats.get(name)[7].append(responsetime)     
+    
+    elif (BP_name in area_ur.keys()):
+        #print ('yayur')
+        if (name not in globalareacountstats.keys()):
+            globalareacountstats.update({name: [0,0,0,[],0,0,0,[],0,0,0,[],0,0,0,[]]})
+        if (isCorrect == 1):
+            globalareacountstats.get(name)[8]+=1
+        elif (isCorrect == 0):
+            globalareacountstats.get(name)[9]+=1
+        elif (isCorrect == 2):
+            globalareacountstats.get(name)[10]+=1
+        globalareacountstats.get(name)[11].append(responsetime)     
+    
+    elif (BP_name in area_dr.keys()):
+        #print ('yaydr')
+        if (name not in globalareacountstats.keys()):
+            globalareacountstats.update({name: [0,0,0,[],0,0,0,[],0,0,0,[],0,0,0,[]]})
+        if (isCorrect == 1):
+            globalareacountstats.get(name)[12]+=1
+        elif (isCorrect == 0):
+            globalareacountstats.get(name)[13]+=1
+        elif (isCorrect == 2):
+            globalareacountstats.get(name)[14]+=1
+        globalareacountstats.get(name)[3].append(responsetime)     
+    
     else:
-      tmpPairOfTwoLists = areas.get(BP_name)
-      
-      tmpListOfResponseTimes = tmpPairOfTwoLists[0]
-      tmpListOfResponseTimes.append(responsetime)
-      
-      tmpListOfCorrect = tmpPairOfTwoLists[1]
-      tmpListOfCorrect.append(isCorrect)
+        print ('naaay: ' + str(BP_name))
+        
+#area count by users
+def CalcGlobalAreaCountStats():
+    global globalareacountstats
+    
+#    for item in globalareacountstats:
+#        print (item + ' : ' + str(globalareacountstats[item]))
+        
+    ul_c = []
+    ul_i = []
+    ul_t = []
+    uc_c = []
+    uc_i = []
+    uc_t = []
+    ur_c = []
+    ur_i = []
+    ur_t = []
+    dr_c = []
+    dr_i = []
+    dr_t = []
+    
+    for item in globalareacountstats:
+        ul_c.append(globalareacountstats.get(item)[0])
+        ul_i.append(globalareacountstats.get(item)[1])
+        ul_t.append(globalareacountstats.get(item)[2])
+    
+        uc_c.append(globalareacountstats.get(item)[4])
+        uc_i.append(globalareacountstats.get(item)[5])
+        uc_t.append(globalareacountstats.get(item)[6])
+        
+        ur_c.append(globalareacountstats.get(item)[8])
+        ur_i.append(globalareacountstats.get(item)[9])
+        ur_t.append(globalareacountstats.get(item)[10])
+        
+        dr_c.append(globalareacountstats.get(item)[12])
+        dr_i.append(globalareacountstats.get(item)[13])
+        dr_t.append(globalareacountstats.get(item)[14])
+    
+    print ('\tArea count stats:')    
+    
+    ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(ul_c, '\t\tul_c: ')
+    ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(ul_i, '\t\tul_i: ')
+    ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(ul_t, '\t\tul_t: ')
+    ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(uc_c, '\t\tuc_c: ')
+    ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(uc_i, '\t\tuc_i: ')
+    ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(uc_t, '\t\tuc_t: ')
+    ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(ur_c, '\t\tur_c: ')
+    ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(ur_i, '\t\tur_i: ')
+    ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(ur_t, '\t\tur_t: ')
+    ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(dr_c, '\t\tdr_c: ')
+    ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(dr_i, '\t\tdr_i: ')
+    ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(dr_t, '\t\tdr_t: ')
+    
+def UpdateAreaStatsForGlobal(areas, BP_name, responsetime, isCorrect):
+    if (BP_name not in areas.keys()):
+        areas.update({BP_name : [[responsetime], [isCorrect]]})
+    else:
+        tmpPairOfTwoLists = areas.get(BP_name)
+  
+        tmpListOfResponseTimes = tmpPairOfTwoLists[0]
+        tmpListOfResponseTimes.append(responsetime)
+    
+        tmpListOfCorrect = tmpPairOfTwoLists[1]
+        tmpListOfCorrect.append(isCorrect)
+        
+def UpdateAreaStats(areas, BP_name, responsetime, isCorrect,name):
+    #print (BP_name)
+    UpdateAreaStatsForGlobal(areas, BP_name, responsetime, isCorrect)
+    UpdateAreaStatsForLocal(areas, BP_name, responsetime, isCorrect, name)
+
+
   
 def PrintSummary(CountErrorWrongItem,CountErrorListNotFinished,CountTimeCorrect,CountCorrect,CountTimeError,CountNewActiveListStr):
     TotalErrorWithTimouts = CountErrorWrongItem + CountErrorListNotFinished + CountTimeCorrect
@@ -442,14 +546,14 @@ def CalcListStats(spamreader_var, con, name):
                     CountCorrect +=1
                     if (completiontime>10000): #within 10sec?
                         CountTimeCorrect+=1
-                        UpdateAreaStats(areas, tmpListName, completiontime, 0) #correct without timeouts
+                        UpdateAreaStats(areas, tmpListName, completiontime, 0,name) #correct but timeout
 
                     else:
-                        UpdateAreaStats(areas, tmpListName, completiontime, 1) #correct without timeouts
+                        UpdateAreaStats(areas, tmpListName, completiontime, 1,name) #correct, no timeout
                         
                 else: # increase wrong item error counter
                     CountErrorWrongItem+=1               
-                    UpdateAreaStats(areas, tmpListName, completiontime, 2) #correct without timeouts
+                    UpdateAreaStats(areas, tmpListName, completiontime, 2,name) #incorrect
                         
                     if (completiontime>10000):
                         CountTimeError+=1
