@@ -244,7 +244,7 @@ def CalcGlobalStats():
     global_mean_stdev.update({'timeout' : [mean, stdev, normality,tmptimeout]})
     
     #calc missed and classify as incorrect
-    desirednumber = count_people * 24
+    desirednumber = count_people * 20
     missed = desirednumber - tmpcorrect - tmptimeout
 
     #set mean, stdev, normality for incorrect elements    
@@ -481,8 +481,8 @@ def PrintSummary(CountErrorWrongItem,CountErrorListNotFinished,CountTimeCorrect,
         print ('\tTimeouts and incorrect     : ' + str(CountTimeError))
         #print (completiontimes_ls) 
 
-    if (TotalCorrectWithoutTimeouts+TotalErrorWithTimouts != 24):
-        print ('nay! not 24 but ' + str(CountNewActiveListStr))
+    if (TotalCorrectWithoutTimeouts+TotalErrorWithTimouts != 20):
+        print ('nay! not 20 but ' + str(CountNewActiveListStr))
     if (TotalCorrectWithoutTimeouts+TotalErrorWithTimouts != CountNewActiveListStr):
         print ('nay! not CountNewActiveListStr')
         
@@ -521,11 +521,15 @@ def CalcListStats(spamreader_var, con, name):
             t1_ListStart = tmprow.get('timestamp')
             continue
         
+        
         if (strNewActiveList in tmprow.get('A') and not ListStart): # no call of ResetStage
             tripellistitem+=1
             CountErrorListNotFinished+=1
             SelectTextCount = 0  #reset text count (three times selected)
             tmpSelectedItems =  [] #reset selected items
+            continue
+        
+        if (tripellistitem<=4):
             continue
         
         ##### is list finished?

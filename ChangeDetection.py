@@ -418,10 +418,13 @@ def GetResponseTimesForCorrectValues(spamreader_var, name ='',con=''):
           
     #time began
       if (highlighton in tmprow.get('A')):
-
+          count_highlight+=1
+          if (count_highlight<=4):
+              continue
+          #print (count_highlight)
           SetArea(tmprow.get('B'),tmprow.get('C'))
           bShouldPress = True
-          count_highlight+=1
+          
           tmp_t1=tmprow.get('timestamp')      
           continue
     #time ended  
