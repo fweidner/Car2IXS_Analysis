@@ -121,6 +121,8 @@ def CalcListSelection(path):
     
     ListSelection.CalcGlobalMeanCountValues()
     ListSelection.PrintGlobalMeanCountValues()
+    
+    ListSelection.CalcGlobalAreaCountStats()
     ListSelection.Reset()
 
     
@@ -166,16 +168,16 @@ CalcListSelection(path)
 print ('########### 2D List #############')
 path = r'C:\Users\flarion\CloudStation\Study\Logs\2D' 
 #CalcDistance(path, '2D', 'LS')
-CalcListSelection(path)
+#CalcListSelection(path)
 
 print ('########### 3D Change #############')
 path = r'C:\Users\flarion\CloudStation\Study\Logs\3D' 
 #CalcDistance(path, '2D', 'CD')
-CalcChangeDetection(path)
+#CalcChangeDetection(path)
 
 print ('########### 2D Change #############')
 path = r'C:\Users\flarion\CloudStation\Study\Logs\2D' 
 #CalcDistance(path, '2D', 'CD')
-CalcChangeDetection(path)
+#CalcChangeDetection(path)
 
 
