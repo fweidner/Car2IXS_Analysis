@@ -50,6 +50,8 @@ def CalcStatForOneArea(area_mean_stdev, current_area, combined_list_string, fina
     normality = scipy.stats.shapiro(tmplist_t)
     area_mean_stdev.update({final_t : [mean, stdev,normality, len(tmplist_t)]})
     
+    return [tmplist_c, tmplist_i, tmplist_t] #correct, incorrect, timeout
+    
 def PrintOneCalcGlobalAreaCountStats(list_var, prefix):
     mean = statistics.mean(list_var)
     stdev = statistics.stdev(list_var)

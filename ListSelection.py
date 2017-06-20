@@ -15,6 +15,7 @@ strResetStage = 'ResetStage'
 strSelectText = 'SelectText'
 strNewActiveList = 'NewActiveList'
 
+
 areas = {}     #key: blueprint name of list; 
                #value0: reactiontime of correct items including timeouts; 
                #value1: list of 1/0. 1 = correct w/o timeout; 0 = correct w/ timeout; 2 = incorrect
@@ -46,6 +47,8 @@ count_people = 0
 globalareacountstats = {}       #name [ul_c, ul_i, ul_t, [], uc_c, uc_i, uc_t, [], ur_c, ur_i, ur_t, [], dr_c, dr_i, dr_t, []]}
 
 GlobalResponseTimeList = [[],[],[]]
+AreaResponseTimeLists = {'' : [[],[],[]]}
+
 
 def Reset():
     global name_performance
@@ -63,6 +66,8 @@ def Reset():
     
     global GlobalResponseTimeList
     
+    global AreaResponseTimeLists
+    
     name_performance = {}
     
     area_ul = {}
@@ -78,7 +83,11 @@ def Reset():
     areas = {} 
     globalareacountstats = {}
     GlobalResponseTimeList = [[],[],[]]
+
+    AreaResponseTimeLists = {}
     
+    
+
 def CreateTriples(tripels):
     tripels.update({'0' : ['Juice', 'Dog', 'Flower']})
     tripels.update({'1' : ['Wine', 'Cat', 'Tree']})
@@ -277,11 +286,17 @@ def CalcAreaStats(con = '', task = ''):
     global area_uc
     global area_ur
     global area_dr
+    global AreaResponseTimeLists 
     
-    ListSelection_Helper.CalcStatForOneArea(area_mean_stdev, area_ul, 'combined_list_ul', 'ul_c', 'ul_t', 'ul_i')
-    ListSelection_Helper.CalcStatForOneArea(area_mean_stdev, area_ur, 'combined_list_ur', 'ur_c', 'ur_t', 'ur_i')
-    ListSelection_Helper.CalcStatForOneArea(area_mean_stdev, area_uc, 'combined_list_uc', 'uc_c', 'uc_t', 'uc_i')
-    ListSelection_Helper.CalcStatForOneArea(area_mean_stdev, area_dr, 'combined_list_dr', 'dr_c', 'dr_t', 'dr_i')
+    
+    listul = ListSelection_Helper.CalcStatForOneArea(area_mean_stdev, area_ul, 'combined_list_ul', 'ul_c', 'ul_t', 'ul_i')
+    AreaResponseTimeLists.update({'ul' : listul})
+    listur = ListSelection_Helper.CalcStatForOneArea(area_mean_stdev, area_ur, 'combined_list_ur', 'ur_c', 'ur_t', 'ur_i')
+    AreaResponseTimeLists.update({'ur' : listur})
+    listuc = ListSelection_Helper.CalcStatForOneArea(area_mean_stdev, area_uc, 'combined_list_uc', 'uc_c', 'uc_t', 'uc_i')
+    AreaResponseTimeLists.update({'uc' : listuc})
+    listdr = ListSelection_Helper.CalcStatForOneArea(area_mean_stdev, area_dr, 'combined_list_dr', 'dr_c', 'dr_t', 'dr_i')
+    AreaResponseTimeLists.update({'dr' : listdr})
 
     
 def PrintAreaStats(con = ''):
@@ -603,4 +618,9 @@ def CalcListStats(spamreader_var, con, name):
     #PrintSummary(CountErrorWrongItem,CountErrorListNotFinished,CountTimeCorrect,CountCorrect,CountTimeError,CountNewActiveListStr)
     
 def GetGlobalResponseTimeList():
+    global GlobalResponseTimeList
     return GlobalResponseTimeList
+    
+def GetAreaResponseTimeList():
+    global AreaResponseTimeLists 
+    return AreaResponseTimeLists 
