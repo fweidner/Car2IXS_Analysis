@@ -36,6 +36,9 @@ def CalcParametric_WelshWithShapiroAndLevene(list1, list2, printHint=False, prin
         print ('\t\tnormality list1 (Shapiro) = ' + str(scipy.stats.shapiro(list1)))
         print ('\t\tnormality list2 (Shapiro) = ' + str(scipy.stats.shapiro(list2)))
  
+    #print (str(len(list1)))
+    #print (str(len(list2)))
+     
     equalvar = scipy.stats.levene(list1, list2, center='mean')
       
     if (equalvar[1] < 0.05):

@@ -353,10 +353,7 @@ def CalcGlobalMeanCountValues():
     name_performance_stats.update({'EWOT Mean' : [mean_ewot, stdev_ewot, normality_ewot]})
     name_performance_stats.update({'CWT Mean ' : [mean_cwt, stdev_cwt, normality_cwt]})
     
-    GlobalCountStats.update({'CWOT': tmpCountCorrectWithoutTimeoutList})
-    GlobalCountStats.update({'CWT': tmpCountCorrectWithTimeout})
-    GlobalCountStats.update({'EWT': tmpCountErrorWithTimeoutList})
-    GlobalCountStats.update({'EWOT': tmpCountErrorWithoutTimeouts})
+
 
 def PrintGlobalMeanCountValues():
     print ('\tGlobal count stats:')
@@ -630,8 +627,10 @@ def GetGlobalResponseTimeList():
     
 def GetAreaResponseTimeList():
     global AreaResponseTimeLists 
+    
     return AreaResponseTimeLists 
 
 def GetGlobalCountLists():
     global GlobalCountStats
     return GlobalCountStats
+
