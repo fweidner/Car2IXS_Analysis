@@ -179,12 +179,15 @@ def CalcAndPrintOverallTimeStats():
     normalitytimeincorrect = scipy.stats.shapiro(tmpSumIncorrect)
 
     
+    
     print('Time in target zone [ms]:')
     print ('\t'+str(meantimecorrect) + ' [' + str(stdevcorrect) + ']')
     print ('\tnormality = ' + str(normalitytimecorrect))
     print('Time out of target zone [ms]:')
     print ('\t'+str(meantimeincorrect)+ ' [' + str(stdevincorrect) + ']')
     print ('\tnormality = ' + str(normalitytimeincorrect))
+    
+   
     
 def CalcOverallDistanceStats():
     global meanOverallInM
@@ -300,3 +303,14 @@ def GetList_DistanceOverall():
         tmpList.append(distances_mean[item])
     return tmpList
  
+def GetList_TimesOverall():
+    global times
+    
+    tmpSumCorrect = []
+    tmpSumIncorrect = []
+                    
+    for item in times:
+        tmpSumCorrect.append(times.get(item)[2])
+        tmpSumIncorrect.append(times.get(item)[3])
+    
+    return tmpSumCorrect, tmpSumIncorrect
