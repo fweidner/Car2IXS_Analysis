@@ -45,6 +45,7 @@ count_people = 0
 
 globalareacountstats = {}       #name [ul_c, ul_i, ul_t, [], uc_c, uc_i, uc_t, [], ur_c, ur_i, ur_t, [], dr_c, dr_i, dr_t, []]}
 
+GlobalResponseTimeList = [[],[],[]]
 
 def Reset():
     global name_performance
@@ -60,6 +61,8 @@ def Reset():
     global areas
     global globalareacountstats
     
+    global GlobalResponseTimeList
+    
     name_performance = {}
     
     area_ul = {}
@@ -74,6 +77,7 @@ def Reset():
     count_people = 0
     areas = {} 
     globalareacountstats = {}
+    GlobalResponseTimeList = [[],[],[]]
     
 def CreateTriples(tripels):
     tripels.update({'0' : ['Juice', 'Dog', 'Flower']})
@@ -189,6 +193,8 @@ def CalcGlobalStats():
     global areas
     global areas_divided
     global global_mean_stdev
+    
+    global GlobalResponseTimeList
     #seperate entries
     for item in areas:
         areas_divided.update({item : [[],0,[],0,[],0]})
@@ -253,6 +259,10 @@ def CalcGlobalStats():
     stdev = statistics.stdev(tmpIncorrect)
     normality = scipy.stats.normaltest(tmpIncorrect)
     global_mean_stdev.update({'incorrect' : [mean, stdev, normality, missed]})
+    
+    GlobalResponseTimeList[0] = tmpCorrect
+    GlobalResponseTimeList[1] = tmpIncorrect
+    GlobalResponseTimeList[2] = tmpTimeOut
     
 def PrintGlobalStats():
     print ('\tGlobal response time stats:' )
@@ -592,3 +602,5 @@ def CalcListStats(spamreader_var, con, name):
     
     #PrintSummary(CountErrorWrongItem,CountErrorListNotFinished,CountTimeCorrect,CountCorrect,CountTimeError,CountNewActiveListStr)
     
+def GetGlobalResponseTimeList():
+    return GlobalResponseTimeList

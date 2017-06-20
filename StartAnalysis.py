@@ -65,7 +65,19 @@ List_3D_Times_CD = [[],[]]
 List_2D_Times_LS = [[],[]]
 List_3D_Times_LS = [[],[]]
 
+    
+List_2D_ResponseTime_Global_LS = [[],[],[]]
+List_2D_ResponseTime_Area_LS_ul = [[],[],[]]
+List_2D_ResponseTime_Area_LS_uc = [[],[],[]]
+List_2D_ResponseTime_Area_LS_ur = [[],[],[]]
+List_2D_ResponseTime_Area_LS_dr = [[],[],[]]
 
+List_3D_ResponseTime_Global_LS = [[],[],[]]
+List_3D_ResponseTime_Area_LS_ul = [[],[],[]]
+List_3D_ResponseTime_Area_LS_uc = [[],[],[]]
+List_3D_ResponseTime_Area_LS_ur = [[],[],[]]
+List_3D_ResponseTime_Area_LS_dr = [[],[],[]]
+    
 def SkipHeader(spamreader): 
     next(spamreader)
     next(spamreader)
@@ -183,9 +195,22 @@ def CalcDistance(path, con, strTask):
             
     print()
     
-def CalcListSelection(path):
+def CalcListSelection(path, con):
     print()
     print('Calculating List Selection Performance!')
+    
+    global List_2D_ResponseTime_Global_LS
+    global List_2D_ResponseTime_Area_LS_ul
+    global List_2D_ResponseTime_Area_LS_uc
+    global List_2D_ResponseTime_Area_LS_ur
+    global List_2D_ResponseTime_Area_LS_dr
+    
+    global List_3D_ResponseTime_Global_LS
+    global List_3D_ResponseTime_Area_LS_ul
+    global List_3D_ResponseTime_Area_LS_uc
+    global List_3D_ResponseTime_Area_LS_ur
+    global List_3D_ResponseTime_Area_LS_dr
+    
     CountExecution =0
     con = ''
     for (path, dirs, files) in os.walk(path):
@@ -218,8 +243,16 @@ def CalcListSelection(path):
     ListSelection.PrintGlobalMeanCountValues()
     
     ListSelection.CalcGlobalAreaCountStats()
+    
+    if ('2D' in con):   
+        print()
+        List_2D_ResponseTime_Global_LS = ListSelection.GetGlobalResponseTimeList()
+        
+    elif ('3D' in con): 
+        print()
+        List_3D_ResponseTime_Global_LS = ListSelection.GetGlobalResponseTimeList()
+    
     ListSelection.Reset()
-
     
 def CalcChangeDetection(path, con):
     print()
@@ -319,14 +352,14 @@ def CalcChangeDetection(path, con):
 print ('########### 3D List #############')
 #path = r'C:\Users\flarion\CloudStation\Study\Logs\3D' 
 path = r'I:\CloudStation\Study\Logs\3D'
-CalcDistance(path, '3D', 'LS')
-#CalcListSelection(path)
+#CalcDistance(path, '3D', 'LS')
+CalcListSelection(path, '3D')
 
 print ('########### 2D List #############')
 #path = r'C:\Users\flarion\CloudStation\Study\Logs\2D' 
 path = r'I:\CloudStation\Study\Logs\2D'
-CalcDistance(path, '2D', 'LS')
-#CalcListSelection(path)
+#CalcDistance(path, '2D', 'LS')
+CalcListSelection(path,'2D')
 
 print ('########### 3D Change #############')
 #path = r'C:\Users\flarion\CloudStation\Study\LogsWD\3D' 
@@ -421,14 +454,42 @@ print ('######################################################')
 print ('#############  Statistic List Selection  #############')
 print ('######################################################')
 
-print()
-print ('Statistics for Overall Distance:')
-print ('\tin [m]:')
-FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_Distance_LS, List_3D_Distance_LS, 'two-sided')
+print ("Statistics for Global Task Completion Time: ")
+print('\tCorrect')
+FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_ResponseTime_Global_LS[0], List_3D_ResponseTime_Global_LS[0], 'two-sided', False)
+print('\tIncorrect')
+FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_ResponseTime_Global_LS[1], List_3D_ResponseTime_Global_LS[1], 'two-sided', False)
+print('\tTimeout')
+FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_ResponseTime_Global_LS[2], List_3D_ResponseTime_Global_LS[2], 'two-sided', False)
 
-print()
-print ('\tin [ms]:')
-print ('\t\tIn Target Zone:')
-FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_Times_LS[0], List_3D_Times_LS[0])
-print ('\t\tOutside Target Zone:')
-FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_Times_LS[1], List_3D_Times_LS[1])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#print()
+#print ('Statistics for Overall Distance:')
+#print ('\tin [m]:')
+#FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_Distance_LS, List_3D_Distance_LS, 'two-sided')
+#
+#print()
+#print ('\tin [ms]:')
+#print ('\t\tIn Target Zone:')
+#FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_Times_LS[0], List_3D_Times_LS[0])
+#print ('\t\tOutside Target Zone:')
+#FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_Times_LS[1], List_3D_Times_LS[1])
