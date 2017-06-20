@@ -19,7 +19,7 @@ def CalcNonParametric_MannWhitneyWithShapiro(list1, list2, my_alternative='two-s
         print ('\t\tnormality list1 (Shapiro) = ' + str(scipy.stats.shapiro(list1)))
         print ('\t\tnormality list2 (Shapiro) = ' + str(scipy.stats.shapiro(list2)))
     print('\t\t' + str(scipy.stats.mannwhitneyu(list1, list2, alternative=my_alternative)))
-    print ('\t\tMean l1 :' + str(statistics.mean(list1)) + '\tStDev l1: ' + str(statistics.stdev(list1)))
+    print ('\t\tMean l1 : ' + str(statistics.mean(list1)) + '\tStDev l1: ' + str(statistics.stdev(list1)))
     print ('\t\tMean l2 : ' + str(statistics.mean(list2))+ '\tStDev l2: ' + str(statistics.stdev(list2)))
     
     #print (str(len(list1)))
@@ -47,7 +47,7 @@ def CalcParametric_WelshWithShapiroAndLevene(list1, list2, printHint=False, prin
         print ('\t\t' + str(scipy.stats.ttest_ind(list1, list2, equal_var=True))+ '; t-test: '+str(equalvar[1]))
         # a negative sign implies tahat the sample mean is less than the hypothesized mean
     
-    print ('\t\tMean l1 :' + str(statistics.mean(list1)) + '\tStDev l1: ' + str(statistics.stdev(list1)))
+    print ('\t\tMean l1 : ' + str(statistics.mean(list1)) + '\tStDev l1: ' + str(statistics.stdev(list1)))
     print ('\t\tMean l2 : ' + str(statistics.mean(list2))+ '\tStDev l2: ' + str(statistics.stdev(list2)))
     
     if (printHint):

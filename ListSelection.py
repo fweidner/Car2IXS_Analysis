@@ -69,6 +69,8 @@ def Reset():
     global AreaResponseTimeLists
     global GlobalCountStats
     
+    global globalarearesponsetimestats
+    
     name_performance = {}
     
     area_ul = {}
@@ -145,19 +147,13 @@ def CreateAreas():
     area_dr.update({'List_Scaling_BP21' : [[],[]]})
     
 def PrepareForAreaCalculation():
-#    for item in areas:
-#       print (item)
-#       for valueList in areas[item]:
-#           res =''
-#           for valueListItem in valueList:
-#               res+= str(valueListItem) + ';'
-#           print (res)
     global area_uc
     global area_ur
     global area_ur
     global area_dr
-
+    global globalarearesponsetimestats
     CreateAreas()
+    
     
     area_ul.update({'combined_list_ul' : [[],[]]})  #rt, 0-1-2     
     area_uc.update({'combined_list_uc' : [[],[]]})
@@ -353,7 +349,10 @@ def CalcGlobalMeanCountValues():
     name_performance_stats.update({'EWOT Mean' : [mean_ewot, stdev_ewot, normality_ewot]})
     name_performance_stats.update({'CWT Mean ' : [mean_cwt, stdev_cwt, normality_cwt]})
     
-
+    GlobalCountStats.update({'CWOT' : tmpCountCorrectWithoutTimeoutList})
+    GlobalCountStats.update({'EWT' : tmpCountErrorWithTimeoutList})
+    GlobalCountStats.update({'CWT' : tmpCountCorrectWithTimeout})
+    GlobalCountStats.update({'EWOT' : tmpCountErrorWithoutTimeouts})
 
 def PrintGlobalMeanCountValues():
     print ('\tGlobal count stats:')
@@ -380,20 +379,21 @@ def UpdateAreaStatsForLocal(areas, BP_name, responsetime, isCorrect, name):
             globalareacountstats.get(name)[1]+=1
         elif (isCorrect == 2):
             globalareacountstats.get(name)[2]+=1
+
         
         globalareacountstats.get(name)[3].append(responsetime)     
     elif (BP_name in area_uc.keys()):
         #print ('yayuc')   
         if (name not in globalareacountstats.keys()):
             globalareacountstats.update({name: [0,0,0,[],0,0,0,[],0,0,0,[],0,0,0,[]]})
-        
         if (isCorrect == 1):
             globalareacountstats.get(name)[4]+=1
         elif (isCorrect == 0):
             globalareacountstats.get(name)[5]+=1
         elif (isCorrect == 2):
             globalareacountstats.get(name)[6]+=1
-        globalareacountstats.get(name)[7].append(responsetime)     
+
+        globalareacountstats.get(name)[7].append(responsetime)
     
     elif (BP_name in area_ur.keys()):
         #print ('yayur')
@@ -405,6 +405,7 @@ def UpdateAreaStatsForLocal(areas, BP_name, responsetime, isCorrect, name):
             globalareacountstats.get(name)[9]+=1
         elif (isCorrect == 2):
             globalareacountstats.get(name)[10]+=1
+            
         globalareacountstats.get(name)[11].append(responsetime)     
     
     elif (BP_name in area_dr.keys()):
@@ -417,7 +418,7 @@ def UpdateAreaStatsForLocal(areas, BP_name, responsetime, isCorrect, name):
             globalareacountstats.get(name)[13]+=1
         elif (isCorrect == 2):
             globalareacountstats.get(name)[14]+=1
-        globalareacountstats.get(name)[3].append(responsetime)     
+        globalareacountstats.get(name)[15].append(responsetime)     
     
     else:
         print ('naaay: ' + str(BP_name))
@@ -625,6 +626,13 @@ def GetGlobalResponseTimeList():
     global GlobalResponseTimeList
     return GlobalResponseTimeList
     
+def getMeanValList(tmpList):
+    res = 0
+    if (len(tmpList)!=0):
+        res = statistics.mean(tmpList)
+
+    return res
+
 def GetAreaResponseTimeList():
     global AreaResponseTimeLists 
     
