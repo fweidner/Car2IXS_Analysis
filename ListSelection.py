@@ -48,7 +48,7 @@ globalareacountstats = {}       #name [ul_c, ul_i, ul_t, [], uc_c, uc_i, uc_t, [
 
 GlobalResponseTimeList = [[],[],[]]
 AreaResponseTimeLists = {'' : [[],[],[]]}
-
+GlobalCountStats = {'':[]}
 
 def Reset():
     global name_performance
@@ -67,6 +67,7 @@ def Reset():
     global GlobalResponseTimeList
     
     global AreaResponseTimeLists
+    global GlobalCountStats
     
     name_performance = {}
     
@@ -86,7 +87,7 @@ def Reset():
 
     AreaResponseTimeLists = {}
     
-    
+    GlobalCountStats = {'':[]}    
 
 def CreateTriples(tripels):
     tripels.update({'0' : ['Juice', 'Dog', 'Flower']})
@@ -319,6 +320,8 @@ def CalcGlobalMeanCountValues():
     global name_performance
     global name_performance_stats
     
+    global GlobalCountStats
+    
     tmpCountCorrectWithoutTimeoutList = []
     tmpCountErrorWithTimeoutList = []
     tmpCountErrorWithoutTimeouts = []
@@ -326,7 +329,6 @@ def CalcGlobalMeanCountValues():
     for item in name_performance:
         tmpCountCorrectWithoutTimeoutList.append(name_performance.get(item)[4])    #correct without timeout 
         tmpCountErrorWithTimeoutList.append(name_performance.get(item)[1])    #error with timeouts
-        tmpCountErrorWithoutTimeouts.append(name_performance.get(item)[2])
         tmpCountErrorWithoutTimeouts.append(name_performance.get(item)[2])
         tmpCountCorrectWithTimeout.append(name_performance.get(item)[3])
 
@@ -350,6 +352,11 @@ def CalcGlobalMeanCountValues():
     name_performance_stats.update({'EWT Mean ' : [mean_ewt, stdev_ewt, normality_ewt]})
     name_performance_stats.update({'EWOT Mean' : [mean_ewot, stdev_ewot, normality_ewot]})
     name_performance_stats.update({'CWT Mean ' : [mean_cwt, stdev_cwt, normality_cwt]})
+    
+    GlobalCountStats.update({'CWOT': tmpCountCorrectWithoutTimeoutList})
+    GlobalCountStats.update({'CWT': tmpCountCorrectWithTimeout})
+    GlobalCountStats.update({'EWT': tmpCountErrorWithTimeoutList})
+    GlobalCountStats.update({'EWOT': tmpCountErrorWithoutTimeouts})
 
 def PrintGlobalMeanCountValues():
     print ('\tGlobal count stats:')
@@ -624,3 +631,7 @@ def GetGlobalResponseTimeList():
 def GetAreaResponseTimeList():
     global AreaResponseTimeLists 
     return AreaResponseTimeLists 
+
+def GetGlobalCountLists():
+    global GlobalCountStats
+    return GlobalCountStats

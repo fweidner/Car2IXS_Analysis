@@ -80,6 +80,9 @@ List_3D_ResponseTime_Area_LS_dr = [[],[],[]]
 AreaResponseTimeLists_2D = {}
 AreaResponseTimeLists_3D = {}
 
+GlobalCountStats_3D = {}
+GlobalCountStats_2D = {}
+
 def SkipHeader(spamreader): 
     next(spamreader)
     next(spamreader)
@@ -215,6 +218,8 @@ def CalcListSelection(path, con):
     
     global AreaResponseTimeLists_2D
     global AreaResponseTimeLists_3D
+    global GlobalCountStats_2D
+    global GlobalCountStats_3D
     
     CountExecution =0
     con = ''
@@ -253,11 +258,13 @@ def CalcListSelection(path, con):
         print()
         List_2D_ResponseTime_Global_LS = ListSelection.GetGlobalResponseTimeList()
         AreaResponseTimeLists_2D = ListSelection.GetAreaResponseTimeList()
+        GlobalCountStats_2D = ListSelection.GetGlobalCountLists()
         
     elif ('3D' in con): 
         print()
         List_3D_ResponseTime_Global_LS = ListSelection.GetGlobalResponseTimeList()
         AreaResponseTimeLists_3D = ListSelection.GetAreaResponseTimeList()
+        GlobalCountStats_3D = ListSelection.GetGlobalCountLists()
     
     ListSelection.Reset()
     
@@ -357,14 +364,14 @@ def CalcChangeDetection(path, con):
 
 
 print ('########### 3D List #############')
-#path = r'C:\Users\flarion\CloudStation\Study\Logs\3D' 
-path = r'I:\CloudStation\Study\Logs\3D'
+path = r'C:\Users\flarion\CloudStation\Study\Logs\3D' 
+#path = r'I:\CloudStation\Study\Logs\3D'
 #CalcDistance(path, '3D', 'LS')
 CalcListSelection(path, '3D')
 
 print ('########### 2D List #############')
-#path = r'C:\Users\flarion\CloudStation\Study\Logs\2D' 
-path = r'I:\CloudStation\Study\Logs\2D'
+path = r'C:\Users\flarion\CloudStation\Study\Logs\2D' 
+#path = r'I:\CloudStation\Study\Logs\2D'
 #CalcDistance(path, '2D', 'LS')
 CalcListSelection(path,'2D')
 
@@ -461,57 +468,67 @@ print ('######################################################')
 print ('#############  Statistic List Selection  #############')
 print ('######################################################')
 
-print ("Statistics for Global Task Completion Time: ")
-print('\tCorrect')
-FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_ResponseTime_Global_LS[0], List_3D_ResponseTime_Global_LS[0], 'two-sided', False)
-print('\tIncorrect')
-FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_ResponseTime_Global_LS[1], List_3D_ResponseTime_Global_LS[1], 'two-sided', False)
-print('\tTimeout')
-FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_ResponseTime_Global_LS[2], List_3D_ResponseTime_Global_LS[2], 'two-sided', False)
+#print ("Statistics for Global Task Completion Time: ")
+#print('\tCorrect')
+#FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_ResponseTime_Global_LS[0], List_3D_ResponseTime_Global_LS[0], 'two-sided', False)
+#print('\tIncorrect')
+#FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_ResponseTime_Global_LS[1], List_3D_ResponseTime_Global_LS[1], 'two-sided', False)
+#print('\tTimeout')
+#FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_ResponseTime_Global_LS[2], List_3D_ResponseTime_Global_LS[2], 'two-sided', False)
+#
+#print ("Statistics for Area Task Completion Time: ")
+#print ('\tUL:')
+#print ('\tCorrect:')
+#FinalStatistics.CalcParametric_WelshWithShapiroAndLevene(AreaResponseTimeLists_2D.get('ul')[0], AreaResponseTimeLists_3D.get('ul')[0], False)
+#
+#print ('\tIncorrect:')
+#FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('ul')[1], AreaResponseTimeLists_3D.get('ul')[1], 'two-sided', False)
+#
+#print ('\tMissed:')
+#FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('ul')[2], AreaResponseTimeLists_3D.get('ul')[2], 'two-sided', False)
+#
+#print ('\tUC:')
+#print ('\tCorrect:')
+#FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('uc')[0], AreaResponseTimeLists_3D.get('uc')[0], 'two-sided', False)
+#
+#print ('\tIncorrect:')
+#FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('uc')[1], AreaResponseTimeLists_3D.get('uc')[1], 'two-sided', False)
+#
+#print ('\tMissed:')
+#FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('uc')[2], AreaResponseTimeLists_3D.get('uc')[2], 'two-sided', False)
+#
+#print ('\tUR:')
+#print ('\tCorrect:')
+#FinalStatistics.CalcParametric_WelshWithShapiroAndLevene(AreaResponseTimeLists_2D.get('ur')[0], AreaResponseTimeLists_3D.get('ur')[0], False)
+#
+#print ('\tIncorrect:')
+#FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('ur')[1], AreaResponseTimeLists_3D.get('ur')[1], 'two-sided', False)
+#
+#print ('\tMissed:')
+#FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('ur')[2], AreaResponseTimeLists_3D.get('ur')[2], 'two-sided', False)
+#
+#print ('\tDR:')
+#print ('\tCorrect:')
+#FinalStatistics.CalcParametric_WelshWithShapiroAndLevene(AreaResponseTimeLists_2D.get('dr')[0], AreaResponseTimeLists_3D.get('dr')[0], False)
+#
+#print ('\tIncorrect:')
+#FinalStatistics.CalcParametric_WelshWithShapiroAndLevene(AreaResponseTimeLists_2D.get('dr')[1], AreaResponseTimeLists_3D.get('dr')[1], False)
+#
+#print ('\tMissed:')
+#FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('dr')[2], AreaResponseTimeLists_3D.get('dr')[2], 'two-sided', False)
 
-print ("Statistics for Area Task Completion Time: ")
-print ('\tUL:')
-print ('\tCorrect:')
-FinalStatistics.CalcParametric_WelshWithShapiroAndLevene(AreaResponseTimeLists_2D.get('ul')[0], AreaResponseTimeLists_3D.get('ul')[0], False)
+print ("Statistics for Global Count: ")
+print ('\tCorrect without timeout:')
+FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(GlobalCountStats_2D.get('CWOT'), GlobalCountStats_3D.get('CWOT'), 'two-sided', False, True)
 
-print ('\tIncorrect:')
-FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('ul')[1], AreaResponseTimeLists_3D.get('ul')[1], 'two-sided', False)
+print ('\tCorrect with timeout:')
+FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(GlobalCountStats_2D.get('CWT'), GlobalCountStats_3D.get('CWT'), 'two-sided', False, True)
 
-print ('\tMissed:')
-FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('ul')[2], AreaResponseTimeLists_3D.get('ul')[2], 'two-sided', False)
+print ('\tError without timeout:')
+FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(GlobalCountStats_2D.get('EWOT'), GlobalCountStats_3D.get('EWOT'), 'two-sided', False, True)
 
-print ('\tUC:')
-print ('\tCorrect:')
-FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('uc')[0], AreaResponseTimeLists_3D.get('uc')[0], 'two-sided', False)
-
-print ('\tIncorrect:')
-FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('uc')[1], AreaResponseTimeLists_3D.get('uc')[1], 'two-sided', False)
-
-print ('\tMissed:')
-FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('uc')[2], AreaResponseTimeLists_3D.get('uc')[2], 'two-sided', False)
-
-print ('\tUR:')
-print ('\tCorrect:')
-FinalStatistics.CalcParametric_WelshWithShapiroAndLevene(AreaResponseTimeLists_2D.get('ur')[0], AreaResponseTimeLists_3D.get('ur')[0], False)
-
-print ('\tIncorrect:')
-FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('ur')[1], AreaResponseTimeLists_3D.get('ur')[1], 'two-sided', False)
-
-print ('\tMissed:')
-FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('ur')[2], AreaResponseTimeLists_3D.get('ur')[2], 'two-sided', False)
-
-print ('\tDR:')
-print ('\tCorrect:')
-FinalStatistics.CalcParametric_WelshWithShapiroAndLevene(AreaResponseTimeLists_2D.get('dr')[0], AreaResponseTimeLists_3D.get('dr')[0], False)
-
-print ('\tIncorrect:')
-FinalStatistics.CalcParametric_WelshWithShapiroAndLevene(AreaResponseTimeLists_2D.get('dr')[1], AreaResponseTimeLists_3D.get('dr')[1], False)
-
-print ('\tMissed:')
-FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('dr')[2], AreaResponseTimeLists_3D.get('dr')[2], 'two-sided', False)
-
-
-
+print ('\tError with timeout:')
+FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(GlobalCountStats_2D.get('EWT'), GlobalCountStats_3D.get('EWT'), 'two-sided', False, True)
 
 
 

@@ -22,6 +22,8 @@ def CalcNonParametric_MannWhitneyWithShapiro(list1, list2, my_alternative='two-s
     print ('\t\tMean l1 :' + str(statistics.mean(list1)) + '\tStDev l1: ' + str(statistics.stdev(list1)))
     print ('\t\tMean l2 : ' + str(statistics.mean(list2))+ '\tStDev l2: ' + str(statistics.stdev(list2)))
     
+    #print (str(len(list1)))
+    #print (str(len(list2)))
         
 
     if(printHint):
