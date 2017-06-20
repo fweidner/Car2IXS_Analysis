@@ -44,7 +44,7 @@ def CalcParametric_WelshWithShapiroAndLevene(list1, list2, printHint=False):
     
     if (printHint):
         print ('\t\tLevene  : If p < 0.05 indicates a violation of the assumption that variance is equal across groups. ')    
-        print ('\t\tT-Test  : If p < 0.05, then we can reject the null hypothesis of identical average scores.')    
+        print ('\t\tT-Test  : If p < 0.05, then we can reject the null hypothesis of identical average scores. (they differ)')    
         print ('\t\tShapiro : If P > 0.05, it may be assumed that the data have a normal distribution.')
     
 
