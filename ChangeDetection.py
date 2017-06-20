@@ -32,10 +32,7 @@ responsetimes_uc = []
 responsetimes_ur = []
 responsetimes_dr = []
 
-
-
 responsetimes_areas = {}
-
 
 globalCount_area = {} # aera : corr , wrong, missed
 globalCount_area.update({'ul' : [0,0,0]})
@@ -51,6 +48,10 @@ def Reset():
     global responsetimes_areas
     global globalCount_area 
     
+    global responsetimes_dr
+    global responsetimes_uc
+    global responsetimes_ul
+    global responsetimes_ur
     
     responsetimes_stat_total = []
     responsetimes_total = []
@@ -63,6 +64,11 @@ def Reset():
     globalCount_area.update({'uc' : [0,0,0]})
     globalCount_area.update({'ur' : [0,0,0]})
     globalCount_area.update({'dr' : [0,0,0]})
+    
+    responsetimes_ul = []
+    responsetimes_uc = []
+    responsetimes_ur = []
+    responsetimes_dr = []
 
 def CalcTime(t1, t2, responsetimes_cd):
     global currentarea
@@ -93,6 +99,12 @@ def PrintGlobalResponseTimes():
 def CalcGlobalResponseTimeStats():
     global responsetimes_total
     global responsetimes_stat_total
+    
+    global responsetimes_dr
+    global responsetimes_uc
+    global responsetimes_ul
+    global responsetimes_ur
+    
     responsetimes_total = list(map(int, responsetimes_total))
     responsetimes_stat_total.append(statistics.mean(responsetimes_total))
     responsetimes_stat_total.append(statistics.stdev(responsetimes_total))
@@ -118,6 +130,10 @@ def CalcGlobalResponseTimeStats():
     responsetimes_areas.update({'dr' : [mean, stdev, norm]})
 
 def PrintGlobalResponseTimeStats():
+    global responsetimes_stat_total
+    global responsetimes_total
+    global responsetimes_areas
+    
     print()
     print('Overall mean Change Detection Response Time and StDev in [ms]:')
     print ('\t' + str(responsetimes_stat_total))
@@ -132,16 +148,25 @@ def PrintGlobalCountsCD():
         print (item + ' : ' + str(countsCD[item]))
         
 def fillMissed():
-                            #5/6/7 = ul
-                        #8/9/10 = uc
-                        #11/12/13 = ur
-                        #14/15/16 = dr
+    #5/6/7 = ul
+    #8/9/10 = uc
+    #11/12/13 = ur
+    #14/15/16 = dr
+    global countsCD
+    
     for item in countsCD:
         #ul
-        countsCD.get(item)[7] = 13 - countsCD.get(item)[6] - countsCD.get(item)[5]
-        countsCD.get(item)[10] = 13 - countsCD.get(item)[9] - countsCD.get(item)[8]
-        countsCD.get(item)[13] = 19 - countsCD.get(item)[11] - countsCD.get(item)[12]
-        countsCD.get(item)[16] = 13 - countsCD.get(item)[15] - countsCD.get(item)[14]
+        res = 13 - countsCD.get(item)[6] - countsCD.get(item)[5] 
+        countsCD.get(item)[7] = res if res>=0 else 0
+
+        res = 13 - countsCD.get(item)[9] - countsCD.get(item)[8] 
+        countsCD.get(item)[10] = res if res>=0 else 0
+
+        res = 19 - countsCD.get(item)[11] - countsCD.get(item)[12]
+        countsCD.get(item)[13] = res if res>=0 else 0
+
+        res = 13 - countsCD.get(item)[15] - countsCD.get(item)[14]
+        countsCD.get(item)[16] = res if res>=0 else 0
 
 def CalcGlobalCountStats():
     global globalCountStats
@@ -215,7 +240,7 @@ def CalcGlobalCountStats():
     mean_uc_m = statistics.mean(tmpList_m)
     stdev_uc_m = statistics.stdev(tmpList_m)
     norm_uc_m = scipy.stats.shapiro(tmpList_m)
-   
+
     ####################### ur
     tmpList_c = []
     tmpList_w = []
@@ -275,6 +300,7 @@ def CalcGlobalCountStats():
     
     
     #H0: list is normal distributed
+    # The null-hypothesis of this test is that the population is normally distributed. 
     # If P is higher than 0.05, it may be assumed that the data have a Normal distribution and the conclusion ‘accept Normality’ is displayed.
     # https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.shapiro.html
     # https://en.wikipedia.org/wiki/Shapiro%E2%80%93Wilk_test
@@ -473,6 +499,66 @@ def GetResponseTimesForCorrectValues(spamreader_var, name ='',con=''):
   #  print ('ul_m' + str(countsCD.get(name)[7]))
 
     MergeResponseTimes(responsetimes_cd)          
-          
+    
+def GetList_OverallResponseTime():
+    global responsetimes_total
+    return responsetimes_total
+    
+def GetList_AreaResponseTime():
+    global responsetimes_dr
+    global responsetimes_uc
+    global responsetimes_ul
+    global responsetimes_ur
+    
+    return responsetimes_ur, responsetimes_uc, responsetimes_uc, responsetimes_dr
  
+def GetList_OverallCount():
+    tmpListCorrect =[]
+    tmpListWrong=[]
+    tmpListMissed=[]
+    
+    for item in countsCD:
+        tmpListCorrect.append(countsCD.get(item)[2])    
+        tmpListWrong.append(countsCD.get(item)[3])    
+        tmpListMissed.append(countsCD.get(item)[4])    
         
+    return tmpListCorrect, tmpListWrong, tmpListMissed
+    
+def GetList_AreaCount(area):
+
+                        #5/6/7 = ul
+                        #8/9/10 = uc
+                        #11/12/13 = ur
+                        #14/15/16 = dr
+                        
+    tmpListCorrect =[]
+    tmpListWrong=[]
+    tmpListMissed=[]
+    i,j,k =0,0,0
+    if ('UL' in area):
+        i = 5
+        j = 6
+        k = 7
+    elif ('UC' in area):
+        i = 8
+        j = 9
+        k = 10
+    elif ('UR' in area):
+        i = 11
+        j = 12
+        k = 13
+    elif ('DR' in area):
+        i = 14
+        j = 15
+        k = 16
+    else:
+        print ('whaaat')
+        
+    for item in countsCD:
+        tmpListCorrect.append(countsCD.get(item)[i])    
+        tmpListWrong.append(countsCD.get(item)[j])    
+        tmpListMissed.append(countsCD.get(item)[k])    
+    
+    #print (str(tmpListMissed))
+    
+    return [tmpListCorrect, tmpListWrong, tmpListMissed]

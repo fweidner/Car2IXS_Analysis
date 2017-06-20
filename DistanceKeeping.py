@@ -20,6 +20,8 @@ distances_mean={}
 distances_stdev={}
 times = {}
 
+distanceList = []
+
 sum_correct=0 #ms
 sum_incorrect =0 #ms
 
@@ -29,6 +31,36 @@ enteredgoodzone = 0
 timestamp_init = 0
 
 execount =0
+
+def Reset():
+    global distances
+    global distances_mean
+    global distances_stdev
+    global times
+    global distanceList
+    global sum_correct
+    global sum_incorrect
+    global leftgoodzone
+    global enteredgoodzone
+    global timestamp_init
+    global execount
+    
+    distances = {}
+    distances_mean={} 
+    distances_stdev={}
+    times = {}
+
+    distanceList = []
+
+    sum_correct=0 #ms
+    sum_incorrect =0 #ms
+    
+    leftgoodzone = 0
+    enteredgoodzone = 0
+
+    timestamp_init = 0
+
+    execount =0
 
 def setBIsCorrect(bIisInZone, timestamp, bWasInZone):
     global leftgoodzone
@@ -79,6 +111,10 @@ def CalcTimeIncorrect(t1, t2):
     #print ('diff ' + str(res))
     
 def CalcDistancesStatPerParticipant():
+    global distances
+    global distances_mean
+    global distances_stdev
+    
     for item in distances:
         tmpList = distances[item]
         #print(item)
@@ -90,6 +126,9 @@ def CalcDistancesStatPerParticipant():
         distances_mean.update({item: meanval})
     
 def PrintMeanDistances():
+    global distances_mean
+    global distances_stdev
+    
     print ('Mean Distances and StDev of P:')
     for item in distances_mean:
         print ('\t' + item +'\t' + str(distances_mean[item]) +'\t' + str(distances_stdev[item]))
@@ -104,6 +143,8 @@ def PrintTimes():
 #    val = (sum_correct + sum_incorrect)/1000/60
 #    #print ('sum_total: \t'+ str(val))
 #   
+    global times
+    
     print ('Times P spend in or out of target distance zone:')
     print ('(Name : [sum_correct in ms, sum_incorrect in ms])')
     for item in times:
@@ -112,9 +153,13 @@ def PrintTimes():
             
             
 def CalcTimesPerParticipant(name_var, condition_var, task_var):
+    global times
+    
     times.update({name_var : [condition_var, task_var, sum_correct, sum_incorrect]})
     
 def CalcAndPrintOverallTimeStats():
+    global times
+    
     tmpSumCorrect = []
     tmpSumIncorrect = []
                     
@@ -124,7 +169,6 @@ def CalcAndPrintOverallTimeStats():
 
     tmpSumCorrect = list(map(int, tmpSumCorrect))
     tmpSumIncorrect = list(map(int, tmpSumIncorrect))
-    normalitytimecorrect = scipy.stats.shapiro(tmpSumIncorrect)
     
     meantimecorrect = statistics.mean(tmpSumCorrect)
     stdevcorrect = statistics.stdev(tmpSumCorrect)
@@ -146,18 +190,25 @@ def CalcOverallDistanceStats():
     global meanOverallInM
     global stdevOverallInM
     global distance_normality
+    global distanceList
+    global distances
     
-    tmpDistanceList = []
+    distanceList = []
+
     for item in distances:
-        tmpDistanceList += distances[item]
+        distanceList += distances[item]
         #print (len(tmpDistanceList))
-    tmpDistanceList = list(map(int, tmpDistanceList))
-    meanOverallInM = statistics.mean(tmpDistanceList)
-    stdevOverallInM = statistics.stdev(tmpDistanceList)
+    distanceList = list(map(int, distanceList))
+    meanOverallInM = statistics.mean(distanceList)
+    stdevOverallInM = statistics.stdev(distanceList)
     #https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.anderson.html
-    distance_normality = scipy.stats.anderson(tmpDistanceList, dist='norm')
+    distance_normality = scipy.stats.anderson(distanceList, dist='norm')
 
 def PrintOverallDistanceStats(condition = '', task = ''):
+    global meanOverallInM
+    global stdevOverallInM
+    global distance_normality
+    
     print ('Overall distance (mean and stdev) in [m] for ' + condition + ' and ' + task + ':')
     print ('\t' + str(meanOverallInM) + ' [' + str(stdevOverallInM)+']')
     print ('\tnormality = ' + str(distance_normality))
@@ -236,3 +287,16 @@ def CalcDistanceStats(spamreader_var, name_var, condition_var, task_var):
     
     
     #PrintTimes()
+    
+def GetList_DistanceOverall():
+#    global distanceList
+#    return distanceList
+
+    #todo: i'm not sure what this is, and why but working with means and stdevs seems wrong here.
+    global distances_mean
+    tmpList = []
+    for item in distances_mean:
+        #print ('\t' + item +'\t' + str(distances_mean[item]) +'\t' + str(distances_stdev[item]))
+        tmpList.append(distances_mean[item])
+    return tmpList
+ 
