@@ -49,6 +49,7 @@ globalareacountstats = {}       #name [ul_c, ul_i, ul_t, [], uc_c, uc_i, uc_t, [
 GlobalResponseTimeList = [[],[],[]]
 AreaResponseTimeLists = {'' : [[],[],[]]}
 GlobalCountStats = {'':[]}
+AreaCountStats = {}
 
 def Reset():
     global name_performance
@@ -70,7 +71,9 @@ def Reset():
     global GlobalCountStats
     
     global globalarearesponsetimestats
+    global AreaCountStats
     
+    AreaCountStats = {}
     name_performance = {}
     
     area_ul = {}
@@ -373,11 +376,11 @@ def UpdateAreaStatsForLocal(areas, BP_name, responsetime, isCorrect, name):
     if (BP_name in area_ul.keys()):
         if (name not in globalareacountstats.keys()):
             globalareacountstats.update({name: [0,0,0,[],0,0,0,[],0,0,0,[],0,0,0,[]]})
-        if (isCorrect == 1):
+        if (isCorrect == 1):#correct
             globalareacountstats.get(name)[0]+=1
-        elif (isCorrect == 0):
+        elif (isCorrect == 0): #timeout
             globalareacountstats.get(name)[1]+=1
-        elif (isCorrect == 2):
+        elif (isCorrect == 2): #wrong
             globalareacountstats.get(name)[2]+=1
 
         
@@ -426,7 +429,7 @@ def UpdateAreaStatsForLocal(areas, BP_name, responsetime, isCorrect, name):
 #area count by users
 def CalcGlobalAreaCountStats():
     global globalareacountstats
-    
+    global AreaCountStats
 #    for item in globalareacountstats:
 #        print (item + ' : ' + str(globalareacountstats[item]))
         
@@ -444,21 +447,21 @@ def CalcGlobalAreaCountStats():
     dr_t = []
     
     for item in globalareacountstats:
-        ul_c.append(globalareacountstats.get(item)[0])
-        ul_i.append(globalareacountstats.get(item)[1])
-        ul_t.append(globalareacountstats.get(item)[2])
+        ul_c.append(globalareacountstats.get(item)[0])#correct
+        ul_t.append(globalareacountstats.get(item)[1])#timeout
+        ul_i.append(globalareacountstats.get(item)[2])#wrong
     
         uc_c.append(globalareacountstats.get(item)[4])
-        uc_i.append(globalareacountstats.get(item)[5])
-        uc_t.append(globalareacountstats.get(item)[6])
+        uc_t.append(globalareacountstats.get(item)[5])
+        uc_i.append(globalareacountstats.get(item)[6])
         
         ur_c.append(globalareacountstats.get(item)[8])
-        ur_i.append(globalareacountstats.get(item)[9])
-        ur_t.append(globalareacountstats.get(item)[10])
+        ur_t.append(globalareacountstats.get(item)[9])
+        ur_i.append(globalareacountstats.get(item)[10])
         
         dr_c.append(globalareacountstats.get(item)[12])
-        dr_i.append(globalareacountstats.get(item)[13])
-        dr_t.append(globalareacountstats.get(item)[14])
+        dr_t.append(globalareacountstats.get(item)[13])
+        dr_i.append(globalareacountstats.get(item)[14])
     
     print ('\tArea count stats:')    
     
@@ -474,6 +477,15 @@ def CalcGlobalAreaCountStats():
     ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(dr_c, '\t\tdr_c: ')
     ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(dr_i, '\t\tdr_i: ')
     ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(dr_t, '\t\tdr_t: ')
+    
+    AreaCountStats.update({'ul' : [ul_c, ul_t,ul_i]})
+    AreaCountStats.update({'uc' : [uc_c, uc_t, uc_i]})
+    AreaCountStats.update({'ur' : [ur_c, ur_t, ur_i]})
+    AreaCountStats.update({'dr' : [dr_c, dr_t, dr_i]})
+    
+ 
+    
+   
     
 def UpdateAreaStatsForGlobal(areas, BP_name, responsetime, isCorrect):
     if (BP_name not in areas.keys()):
@@ -641,4 +653,8 @@ def GetAreaResponseTimeList():
 def GetGlobalCountLists():
     global GlobalCountStats
     return GlobalCountStats
+
+def GetAreaCountLists():
+    global AreaCountStats
+    return AreaCountStats
 

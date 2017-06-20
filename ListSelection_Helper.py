@@ -14,22 +14,22 @@ def CalcStatForOneArea(area_mean_stdev, current_area, combined_list_string, fina
     area_mean_stdev.update({final_t : [0,0,[],0]}) #mean, stdev, norm, count
     area_mean_stdev.update({final_i : [0,0,[],0]}) #mean, stdev, norm, count
     tmplist_c = []
-    tmplist_i = []
     tmplist_t = []
+    tmplist_i = []
     tmpListTimes = current_area.get(combined_list_string)[0]
     tmpList012 = current_area.get(combined_list_string)[1]
     length = len(tmpList012)
     
     for j in range (0, length):
-        if (tmpList012[j] == 0):
+        if (tmpList012[j] == 0): #timeout
                 area_mean_stdev.get(final_t)[3]+=1
                 tmplist_t.append(tmpListTimes [j])
 
-        elif (tmpList012[j] == 1):
+        elif (tmpList012[j] == 1): #correct
             area_mean_stdev.get(final_c)[3]+=1
             tmplist_c.append(tmpListTimes [j])
              
-        elif (tmpList012[j] ==2):
+        elif (tmpList012[j] ==2): #incorrect
             area_mean_stdev.get(final_i)[3]+=1
             tmplist_i.append(tmpListTimes [j])
         else:
