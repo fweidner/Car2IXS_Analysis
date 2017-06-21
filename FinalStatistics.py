@@ -29,9 +29,9 @@ def CalcNonParametric_MannWhitneyWithShapiro(list1, list2, my_alternative='two-s
     print ('\t\tMean l1 : ' + str(statistics.mean(list1)) + '\tStDev l1: ' + str(statistics.stdev(list1)))
     print ('\t\tMean l2 : ' + str(statistics.mean(list2))+ '\tStDev l2: ' + str(statistics.stdev(list2)))
     
-    #print (str(len(list1)))
-    #print (str(len(list2)))
-    
+    if (printNorm):
+       print (str(len(list1)))
+       print (str(len(list2)))
     
 
     if(printHint):
@@ -91,24 +91,24 @@ def plotBarChartWithStDev(means, stdev):
     pyplot.ylabel('bla')
     pyplot.xticks(ind,('ul','uc','ur','dr','t'))
 
-def plotBarChartWithStdDevDouble(means1, means2, stdev1, stdev2, axistitle = ''):
-    N = 5
+def plotBarChartWithStdDevDouble(n, means1, means2, stdev1, stdev2, axislist, axistitle = '', newwidth=0.27):
+    N = n
     ind = np.arange(N)  # the x locations for the groups
-    width = 0.27       # the width of the bars
+    width = newwidth       # the width of the bars
     
     fig = pyplot.figure()
     ax = fig.add_subplot(111)
     
     yvals = means1#[4, 9,6,9,2]
-    rects1 = ax.bar(ind+width, yvals, width, yerr=stdev1, color='#A9A9A9', hatch='//')
+    rects1 = ax.bar(ind+width, yvals, width, yerr=stdev1, ecolor='black', error_kw=dict(lw=1, capsize=3, capthick=1), color='#A9A9A9', hatch='//')
     
     zvals = means2#[1,2,21,1,2]
-    rects2 = ax.bar(ind+width*2, zvals, width, yerr=stdev2, color='#D3D3D3', hatch='.')
+    rects2 = ax.bar(ind+width*2, zvals, width, yerr=stdev2, ecolor='black',error_kw=dict(lw=1, capsize=3, capthick=1), color='#D3D3D3', hatch='..')
     
     ax.set_ylabel(axistitle)
     ax.set_xticks(ind+width*2)
-    ax.set_xticklabels( ('ul', 'uc','ur','dr','t',) )
-    #ax.legend( (rects1[0], rects2[0], rects3[0]), ('y', 'z', 'k') )
+    ax.set_xticklabels( axislist )
+    ax.legend( (rects1[0], rects2[0]), ('2D', '3D') )
     
     def autolabel(rects):
         for rect in rects:

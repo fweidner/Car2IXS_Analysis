@@ -162,7 +162,7 @@ def fillMissed():
         res = 13 - countsCD.get(item)[9] - countsCD.get(item)[8] 
         countsCD.get(item)[10] = res if res>=0 else 0
 
-        res = 19 - countsCD.get(item)[11] - countsCD.get(item)[12]
+        res = 19 - countsCD.get(item)[12] - countsCD.get(item)[11]
         countsCD.get(item)[13] = res if res>=0 else 0
 
         res = 13 - countsCD.get(item)[15] - countsCD.get(item)[14]
@@ -510,7 +510,7 @@ def GetList_AreaResponseTime():
     global responsetimes_ul
     global responsetimes_ur
     
-    return responsetimes_ur, responsetimes_uc, responsetimes_uc, responsetimes_dr
+    return responsetimes_ul, responsetimes_uc, responsetimes_ur, responsetimes_dr
  
 def GetList_OverallCount():
     tmpListCorrect =[]
