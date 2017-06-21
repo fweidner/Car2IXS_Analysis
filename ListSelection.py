@@ -311,9 +311,9 @@ def PrintAreaStats(con = ''):
 def CalcTime(t1, t2):
     return int(t2)-int(t1)
     
-def UpdateListForMeanValues(name, TotalErrorWithTimeouts, TotalErrorWithoutTimeouts, TotalCorrectWithTimeouts, TotalCorrectWithoutTimeouts,CountNewActiveListStr):
+def UpdateListForMeanValues(name, TotalErrorWithTimeouts, TotalErrorWithoutTimeouts, TotalCorrectWithTimeouts, TotalCorrectWithoutTimeouts,CountNewActiveListStr,CountTimeCorrect):
     global name_performance
-    name_performance.update({name : [name, TotalErrorWithTimeouts, TotalErrorWithoutTimeouts, TotalCorrectWithTimeouts, TotalCorrectWithoutTimeouts,CountNewActiveListStr]})
+    name_performance.update({name : [name, TotalErrorWithTimeouts, TotalErrorWithoutTimeouts, TotalCorrectWithTimeouts, TotalCorrectWithoutTimeouts,CountNewActiveListStr,CountTimeCorrect]})
 
 def CalcGlobalMeanCountValues():
     global name_performance
@@ -325,11 +325,13 @@ def CalcGlobalMeanCountValues():
     tmpCountErrorWithTimeoutList = []
     tmpCountErrorWithoutTimeouts = []
     tmpCountCorrectWithTimeout = []
+    tmpCountTimeout = []
     for item in name_performance:
         tmpCountCorrectWithoutTimeoutList.append(name_performance.get(item)[4])    #correct without timeout 
         tmpCountErrorWithTimeoutList.append(name_performance.get(item)[1])    #error with timeouts
         tmpCountErrorWithoutTimeouts.append(name_performance.get(item)[2])
         tmpCountCorrectWithTimeout.append(name_performance.get(item)[3])
+        tmpCountTimeout.append(name_performance.get(item)[6])
 
     mean_cwot = statistics.mean(tmpCountCorrectWithoutTimeoutList)
     stdev_cwot = statistics.stdev(tmpCountCorrectWithoutTimeoutList)
@@ -356,7 +358,8 @@ def CalcGlobalMeanCountValues():
     GlobalCountStats.update({'EWT' : tmpCountErrorWithTimeoutList})
     GlobalCountStats.update({'CWT' : tmpCountCorrectWithTimeout})
     GlobalCountStats.update({'EWOT' : tmpCountErrorWithoutTimeouts})
-
+    GlobalCountStats.update({'T' : tmpCountTimeout})
+    
 def PrintGlobalMeanCountValues():
     print ('\tGlobal count stats:')
     for item in name_performance_stats:
@@ -373,6 +376,7 @@ def UpdateAreaStatsForLocal(areas, BP_name, responsetime, isCorrect, name):
     CreateAreas()
     #print (str(area_ul.keys()))
     
+        
     if (BP_name in area_ul.keys()):
         if (name not in globalareacountstats.keys()):
             globalareacountstats.update({name: [0,0,0,[],0,0,0,[],0,0,0,[],0,0,0,[]]})
@@ -501,6 +505,9 @@ def UpdateAreaStatsForGlobal(areas, BP_name, responsetime, isCorrect):
         
 def UpdateAreaStats(areas, BP_name, responsetime, isCorrect,name):
     #print (BP_name)
+    if (responsetime>20000):
+       responsetime=20000
+   
     UpdateAreaStatsForGlobal(areas, BP_name, responsetime, isCorrect)
     UpdateAreaStatsForLocal(areas, BP_name, responsetime, isCorrect, name)
 
@@ -628,7 +635,7 @@ def CalcListStats(spamreader_var, con, name):
     TotalCorrectWithTimeouts = CountCorrect
     TotalCorrectWithoutTimeouts = CountCorrect - CountTimeCorrect
  
-    UpdateListForMeanValues (name, TotalErrorWithTimeouts, TotalErrorWithoutTimeouts, TotalCorrectWithTimeouts, TotalCorrectWithoutTimeouts,CountNewActiveListStr)
+    UpdateListForMeanValues (name, TotalErrorWithTimeouts, TotalErrorWithoutTimeouts, TotalCorrectWithTimeouts, TotalCorrectWithoutTimeouts,CountNewActiveListStr,CountTimeCorrect)
     ###############################################
     ###############################################
     

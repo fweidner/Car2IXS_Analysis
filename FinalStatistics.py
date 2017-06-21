@@ -91,7 +91,7 @@ def plotBarChartWithStDev(means, stdev):
     pyplot.ylabel('bla')
     pyplot.xticks(ind,('ul','uc','ur','dr','t'))
 
-def plotBarChartWithStdDevDouble(n, means1, means2, stdev1, stdev2, axislist, axistitle = '', newwidth=0.27):
+def plotBarChartWithStdDevDouble(n, means1, means2, stdev1, stdev2, axislist, axistitle = '', newwidth=0.27, vlabeloffset=2):
     N = n
     ind = np.arange(N)  # the x locations for the groups
     width = newwidth       # the width of the bars
@@ -106,7 +106,7 @@ def plotBarChartWithStdDevDouble(n, means1, means2, stdev1, stdev2, axislist, ax
     rects2 = ax.bar(ind+width*2, zvals, width, yerr=stdev2, ecolor='black',error_kw=dict(lw=1, capsize=3, capthick=1), color='#D3D3D3', hatch='..')
     
     ax.set_ylabel(axistitle)
-    ax.set_xticks(ind+width*2)
+    ax.set_xticks(ind+width*vlabeloffset)
     ax.set_xticklabels( axislist )
     ax.legend( (rects1[0], rects2[0]), ('2D', '3D') )
     
