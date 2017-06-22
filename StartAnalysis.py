@@ -371,16 +371,16 @@ def CalcChangeDetection(path, con):
 ##################################################
 ##################################################
 
-Do_Distance_LS = False
-Do_Distance_CD = False
+Do_Distance_LS = True
+Do_Distance_CD = True
 Do_Performance_LS = True
-Do_Performance_CD = False
+Do_Performance_CD = True
 
 
 
 print ('########### 3D List #############')
-path = r'C:\Users\flarion\CloudStation\Study\Logs\3D' 
-#path = r'D:\CloudStation\Study\Logs\3D'
+#path = r'C:\Users\flarion\CloudStation\Study\Logs\3D' 
+path = r'D:\CloudStation\Study\Logs\3D'
 #path = r'I:\CloudStation\Study\Logs\3D'
 
 if (Do_Distance_LS):
@@ -389,8 +389,8 @@ if (Do_Performance_LS):
     CalcListSelection(path, '3D')
 
 print ('########### 2D List #############')
-path = r'C:\Users\flarion\CloudStation\Study\Logs\2D' 
-#path = r'D:\CloudStation\Study\Logs\2D'
+#path = r'C:\Users\flarion\CloudStation\Study\Logs\2D' 
+path = r'D:\CloudStation\Study\Logs\2D'
 #path = r'I:\CloudStation\Study\Logs\2D'
 if (Do_Distance_LS):
     CalcDistance(path, '2D', 'LS')
@@ -398,18 +398,18 @@ if (Do_Performance_LS):
     CalcListSelection(path,'2D')
 
 print ('########### 3D Change #############')
-path = r'C:\Users\flarion\CloudStation\Study\LogsWD\3D' 
+#path = r'C:\Users\flarion\CloudStation\Study\LogsWD\3D' 
 #path = r'I:\CloudStation\Study\Logs\3D'
-#path = r'D:\CloudStation\Study\Logs\3D'
+path = r'D:\CloudStation\Study\Logs\3D'
 if (Do_Distance_CD):
     CalcDistance(path, '2D', 'CD')
 if (Do_Performance_CD):
     CalcChangeDetection(path, '3D')
 
 print ('########### 2D Change #############')
-path = r'C:\Users\flarion\CloudStation\Study\LogsWD\2D' 
+#path = r'C:\Users\flarion\CloudStation\Study\LogsWD\2D' 
 #path = r'I:\CloudStation\Study\Logs\2D'
-#path = r'D:\CloudStation\Study\Logs\2D'
+path = r'D:\CloudStation\Study\Logs\2D'
 if (Do_Distance_CD):
     CalcDistance(path, '2D', 'CD')
 if (Do_Performance_CD):
@@ -512,7 +512,7 @@ if (Do_Performance_CD):
  
     
    
-    FinalStatistics.plotBarChartWithStdDevDouble(3, means2D, means3D, stdev2D, stdev3D,  ['t_c', 't_i','t_t'],'Mean Count of Itemsd')
+    FinalStatistics.plotBarChartWithStdDevDouble(3, means2D, means3D, stdev2D, stdev3D,  ['c', 'i','m'],'Mean Count of Items')
     means3D, means2D, stdev2D, stdev3D = [], [], [],[]
 
      
@@ -693,5 +693,5 @@ if (Do_Distance_LS):
     mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_Times_LS[1], List_3D_Times_LS[1])
     means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
 
-    FinalStatistics.plotBarChartWithStdDevDouble(2, means2D, means3D, stdev2D, stdev3D,  ['In Target Zone', 'Outside Target Zone'],'Mean Times per Area in [s]')
+    FinalStatistics.plotBarChartWithStdDevDouble(2, means2D, means3D, stdev2D, stdev3D,  ['In Target Zone', 'Outside Target Zone'],'Mean Times in [s]')
     means3D, means2D, stdev2D, stdev3D = [], [], [], []
