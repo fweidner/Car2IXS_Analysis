@@ -371,17 +371,23 @@ def CalcChangeDetection(path, con):
 ##################################################
 ##################################################
 
-Do_Distance_LS = True
-Do_Distance_CD = True
+Do_Distance_LS = False
+Do_Distance_CD = False
+Do_Performance_LS = False
+Do_Performance_CD = False
+
+
+#Do_Distance_LS = True
+#Do_Distance_CD = True
 Do_Performance_LS = True
-Do_Performance_CD = True
+#Do_Performance_CD = True
 
 
 
 print ('########### 3D List #############')
 #path = r'C:\Users\flarion\CloudStation\Study\Logs\3D' 
 path = r'D:\CloudStation\Study\Logs\3D'
-#path = r'I:\CloudStation\Study\Logs\3D'
+path = r'I:\CloudStation\Study\Logs\3D'
 
 if (Do_Distance_LS):
     CalcDistance(path, '3D', 'LS')
@@ -391,7 +397,7 @@ if (Do_Performance_LS):
 print ('########### 2D List #############')
 #path = r'C:\Users\flarion\CloudStation\Study\Logs\2D' 
 path = r'D:\CloudStation\Study\Logs\2D'
-#path = r'I:\CloudStation\Study\Logs\2D'
+path = r'I:\CloudStation\Study\Logs\2D'
 if (Do_Distance_LS):
     CalcDistance(path, '2D', 'LS')
 if (Do_Performance_LS):
@@ -399,8 +405,8 @@ if (Do_Performance_LS):
 
 print ('########### 3D Change #############')
 #path = r'C:\Users\flarion\CloudStation\Study\LogsWD\3D' 
-#path = r'I:\CloudStation\Study\Logs\3D'
 path = r'D:\CloudStation\Study\Logs\3D'
+path = r'I:\CloudStation\Study\Logs\3D'
 if (Do_Distance_CD):
     CalcDistance(path, '2D', 'CD')
 if (Do_Performance_CD):
@@ -408,8 +414,8 @@ if (Do_Performance_CD):
 
 print ('########### 2D Change #############')
 #path = r'C:\Users\flarion\CloudStation\Study\LogsWD\2D' 
-#path = r'I:\CloudStation\Study\Logs\2D'
 path = r'D:\CloudStation\Study\Logs\2D'
+path = r'I:\CloudStation\Study\Logs\2D'
 if (Do_Distance_CD):
     CalcDistance(path, '2D', 'CD')
 if (Do_Performance_CD):
@@ -493,8 +499,8 @@ if (Do_Performance_CD):
     mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_AreaCount_DR[2], List_3D_AreaCount_DR[2], 'two-sided')
     means2D.append(mean2d), means3D.append(mean3d), stdev2D.append(stdev2d), stdev3D.append(stdev3d)
 
-    FinalStatistics.plotBarChartWithStdDevDouble(12, means2D, means3D, stdev2D, stdev3D,  ['ul_c', 'ul_i', 'ul_t',   'uc_c', 'uc_i','uc_t',  'ur_c', 'ur_i', 'ur_t',  'dr_c', 'dr_i','dr_t'],'Mean Count of Items')
-    means3D, means2D, stdev2D, stdev3D = [], [], [],[]
+   # FinalStatistics.plotBarChartWithStdDevDouble(12, means2D, means3D, stdev2D, stdev3D,  ['ul_c', 'ul_i', 'ul_t',   'uc_c', 'uc_i','uc_t',  'ur_c', 'ur_i', 'ur_t',  'dr_c', 'dr_i','dr_t'],'Mean Count of Items')
+   # means3D, means2D, stdev2D, stdev3D = [], [], [],[]
 
      
     print ('######################################################')
@@ -512,7 +518,10 @@ if (Do_Performance_CD):
  
     
    
-    FinalStatistics.plotBarChartWithStdDevDouble(3, means2D, means3D, stdev2D, stdev3D,  ['c', 'i','m'],'Mean Count of Items')
+#    FinalStatistics.plotBarChartWithStdDevDouble(3, means2D, means3D, stdev2D, stdev3D,  ['c', 'i','m'],'Mean Count of Items')
+#    means3D, means2D, stdev2D, stdev3D = [], [], [],[]
+
+    FinalStatistics.plotBarChartWithStdDevDouble(15, means2D, means3D, stdev2D, stdev3D,  ['ul_c', 'ul_i', 'ul_t',   'uc_c', 'uc_i','uc_t',  'ur_c', 'ur_i', 'ur_t',  'dr_c', 'dr_i','dr_t',    't_c','t_i','t_t'],'Mean Count of Items',0.27, 2, 16, 12)
     means3D, means2D, stdev2D, stdev3D = [], [], [],[]
 
      
@@ -556,8 +565,8 @@ if (Do_Performance_LS):
     mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_ResponseTime_Global_LS[2], List_3D_ResponseTime_Global_LS[2], 'two-sided', False)
     means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
     print()
-    FinalStatistics.plotBarChartWithStdDevDouble(3,means2D, means3D, stdev2D, stdev3D,  ['Correct', 'Incorrect','Timeout'],'Mean Task Completion Time in [s]',.27,1.5)
-    means3D, means2D, stdev2D, stdev3D = [], [], [],[]
+   # FinalStatistics.plotBarChartWithStdDevDouble(3,means2D, means3D, stdev2D, stdev3D,  ['Correct', 'Incorrect','Timeout'],'Mean Task Completion Time in [s]',.27,2)
+   # means3D, means2D, stdev2D, stdev3D = [], [], [],[]
 
 
     print ('######################################################')
@@ -604,9 +613,13 @@ if (Do_Performance_LS):
     means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
     print()
     
-    FinalStatistics.plotBarChartWithStdDevDouble(12, means2D, means3D, stdev2D, stdev3D,  ['ul_c', 'ul_i', 'ul_t',   'uc_c', 'uc_i','uc_t',  'ur_c', 'ur_i', 'ur_t',  'dr_c', 'dr_i','dr_t'],'Mean Task Completion Time in [s]', 0.27,1.5)
-    means3D, means2D, stdev2D, stdev3D = [], [], [],[]
+#    FinalStatistics.plotBarChartWithStdDevDouble(12, means2D, means3D, stdev2D, stdev3D,  ['ul_c', 'ul_i', 'ul_t',   'uc_c', 'uc_i','uc_t',  'ur_c', 'ur_i', 'ur_t',  'dr_c', 'dr_i','dr_t'],'Mean Task Completion Time in [s]', 0.27,2)
+#    means3D, means2D, stdev2D, stdev3D = [], [], [],[]
     
+    FinalStatistics.plotBarChartWithStdDevDouble(15, means2D, means3D, stdev2D, stdev3D,  ['t_c','t_i','t_t', 'ul_c', 'ul_i', 'ul_t',   'uc_c', 'uc_i','uc_t',  'ur_c', 'ur_i', 'ur_t',  'dr_c', 'dr_i','dr_t'],'Mean Task Completion Time in [s]',0.27, 2, 16, 12)
+    means3D, means2D, stdev2D, stdev3D = [], [], [],[]
+
+
     print ('######################################################')
     print ("Statistics for Global Count: ")
     print ('\tCorrect without timeout:')
@@ -623,8 +636,8 @@ if (Do_Performance_LS):
     means2D.append(mean2d), means3D.append(mean3d), stdev2D.append(stdev2d), stdev3D.append(stdev3d)
     print()
     
-    FinalStatistics.plotBarChartWithStdDevDouble(3, means2D, means3D, stdev2D, stdev3D,  ['c', 'i', 't'],'Mean Count of Items', 0.27,1.5)
-    means3D, means2D, stdev2D, stdev3D = [], [], [],[]
+    #FinalStatistics.plotBarChartWithStdDevDouble(3, means2D, means3D, stdev2D, stdev3D,  ['c', 'i', 't'],'Mean Count of Items', 0.27,2)
+    #means3D, means2D, stdev2D, stdev3D = [], [], [],[]
   
     
     print ('######################################################')
@@ -674,7 +687,11 @@ if (Do_Performance_LS):
     means2D.append(mean2d), means3D.append(mean3d), stdev2D.append(stdev2d), stdev3D.append(stdev3d)
     print()
     
-    FinalStatistics.plotBarChartWithStdDevDouble(12, means2D, means3D, stdev2D, stdev3D,  ['ul_c', 'ul_i', 'ul_t',   'uc_c', 'uc_i','uc_t',  'ur_c', 'ur_i', 'ur_t',  'dr_c', 'dr_i','dr_t'],'Mean Count of Items', 0.27,1.5)
+    #FinalStatistics.plotBarChartWithStdDevDouble(12, means2D, means3D, stdev2D, stdev3D,  ['ul_c', 'ul_i', 'ul_t',   'uc_c', 'uc_i','uc_t',  'ur_c', 'ur_i', 'ur_t',  'dr_c', 'dr_i','dr_t'],'Mean Count of Items', 0.27,2)
+    #means3D, means2D, stdev2D, stdev3D = [], [], [],[]
+ 
+    
+    FinalStatistics.plotBarChartWithStdDevDouble(15, means2D, means3D, stdev2D, stdev3D,  ['t_c', 't_i', 't_t','ul_c', 'ul_i', 'ul_t',   'uc_c', 'uc_i','uc_t',  'ur_c', 'ur_i', 'ur_t',  'dr_c', 'dr_i','dr_t'],'Mean Count of Items', 0.27,2,16,12)
     means3D, means2D, stdev2D, stdev3D = [], [], [],[]
  
 

@@ -9,8 +9,20 @@ import scipy
 
 
 import statsmodels.api as sm
+import matplotlib
+
+
+
+matplotlib.rcParams.update({'font.size': 12})
+
+
+
 from matplotlib import pyplot
 import numpy as np
+
+from pylab import rcParams
+rcParams['figure.figsize'] = 16/2,12/2
+
 
 import statistics
 
@@ -91,19 +103,21 @@ def plotBarChartWithStDev(means, stdev):
     pyplot.ylabel('bla')
     pyplot.xticks(ind,('ul','uc','ur','dr','t'))
 
-def plotBarChartWithStdDevDouble(n, means1, means2, stdev1, stdev2, axislist, axistitle = '', newwidth=0.27, vlabeloffset=2):
+def plotBarChartWithStdDevDouble(n, means1, means2, stdev1, stdev2, axislist, axistitle = '', newwidth=0.27, vlabeloffset=2, x=16, y = 9):
     N = n
     ind = np.arange(N)  # the x locations for the groups
     width = newwidth       # the width of the bars
-    
+    rcParams['figure.figsize'] = x/2,y/2
+
+
     fig = pyplot.figure()
     ax = fig.add_subplot(111)
     
     yvals = means1#[4, 9,6,9,2]
-    rects1 = ax.bar(ind+width, yvals, width, yerr=stdev1, ecolor='black', error_kw=dict(lw=1, capsize=3, capthick=1), color='#A9A9A9', hatch='//')
+    rects1 = ax.bar(ind+width, yvals, width, yerr=stdev1, ecolor='black', error_kw=dict(lw=1, capsize=2, capthick=1), color='#4472c4')#color='#A9A9A9')#, hatch='//')
     
     zvals = means2#[1,2,21,1,2]
-    rects2 = ax.bar(ind+width*2, zvals, width, yerr=stdev2, ecolor='black',error_kw=dict(lw=1, capsize=3, capthick=1), color='#D3D3D3', hatch='..')
+    rects2 = ax.bar(ind+width*2, zvals, width, yerr=stdev2, ecolor='black',error_kw=dict(lw=1, capsize=3, capthick=1), color = '#ed7d31')#color='#D3D3D3')#, hatch='..')
     
     ax.set_ylabel(axistitle)
     ax.set_xticks(ind+width*vlabeloffset)
