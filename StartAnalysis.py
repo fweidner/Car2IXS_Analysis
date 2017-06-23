@@ -574,9 +574,10 @@ if (Do_Performance_LS):
     print ('\t\tIncorrect:')
     mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('ul')[1], AreaResponseTimeLists_3D.get('ul')[1], 'two-sided', False)
     means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
-    print ('\t\tMissed:')
-    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('ul')[2], AreaResponseTimeLists_3D.get('ul')[2], 'two-sided', False)
-    means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
+#    print ('\t\tMissed:')
+#    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('ul')[2], AreaResponseTimeLists_3D.get('ul')[2], 'two-sided', False)
+#    means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
+    means2D.append(0), means3D.append(0), stdev2D.append(0), stdev3D.append(0)
     print ('\tUC:')
     print ('\t\tCorrect:')
     mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('uc')[0], AreaResponseTimeLists_3D.get('uc')[0], 'two-sided', False)
@@ -584,9 +585,10 @@ if (Do_Performance_LS):
     print ('\t\tIncorrect:')
     mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('uc')[1], AreaResponseTimeLists_3D.get('uc')[1], 'two-sided', False)
     means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
-    print ('\t\tMissed:')
-    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('uc')[2], AreaResponseTimeLists_3D.get('uc')[2], 'two-sided', False)
-    means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
+#    print ('\t\tMissed:')
+#    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('uc')[2], AreaResponseTimeLists_3D.get('uc')[2], 'two-sided', False)
+#    means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
+    means2D.append(0), means3D.append(0), stdev2D.append(0), stdev3D.append(0)
     print ('\tUR:')
     print ('\t\tCorrect:')
     mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcParametric_WelshWithShapiroAndLevene(AreaResponseTimeLists_2D.get('ur')[0], AreaResponseTimeLists_3D.get('ur')[0], False)
@@ -594,9 +596,10 @@ if (Do_Performance_LS):
     print ('\t\tIncorrect:')
     mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('ur')[1], AreaResponseTimeLists_3D.get('ur')[1], 'two-sided', False)
     means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
-    print ('\t\tMissed:')
-    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('ur')[2], AreaResponseTimeLists_3D.get('ur')[2], 'two-sided', False)
-    means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
+#    print ('\t\tMissed:')
+#    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('ur')[2], AreaResponseTimeLists_3D.get('ur')[2], 'two-sided', False)
+#    means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
+    means2D.append(0), means3D.append(0), stdev2D.append(0), stdev3D.append(0)
     print ('\tDR:')
     print ('\t\tCorrect:')
     mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcParametric_WelshWithShapiroAndLevene(AreaResponseTimeLists_2D.get('dr')[0], AreaResponseTimeLists_3D.get('dr')[0], False)
@@ -604,9 +607,10 @@ if (Do_Performance_LS):
     print ('\t\tIncorrect:')
     mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcParametric_WelshWithShapiroAndLevene(AreaResponseTimeLists_2D.get('dr')[1], AreaResponseTimeLists_3D.get('dr')[1], False)
     means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
-    print ('\t\tMissed:')
-    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('dr')[2], AreaResponseTimeLists_3D.get('dr')[2], 'two-sided', False)
-    means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
+#    print ('\t\tMissed:')
+#    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('dr')[2], AreaResponseTimeLists_3D.get('dr')[2], 'two-sided', False)
+#    means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
+    means2D.append(0), means3D.append(0), stdev2D.append(0), stdev3D.append(0)
     print()
     
     print ('######################################################')
@@ -617,9 +621,9 @@ if (Do_Performance_LS):
     print('\tIncorrect')
     mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_ResponseTime_Global_LS[1], List_3D_ResponseTime_Global_LS[1], 'two-sided', False)
     means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
-    print('\tTimeout')
-    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_ResponseTime_Global_LS[2], List_3D_ResponseTime_Global_LS[2], 'two-sided', False)
-    means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
+#    print('\tTimeout')
+#    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_ResponseTime_Global_LS[2], List_3D_ResponseTime_Global_LS[2], 'two-sided', False)
+#    means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
     print()
    # FinalStatistics.plotBarChartWithStdDevDouble(3,means2D, means3D, stdev2D, stdev3D,  ['Correct', 'Incorrect','Timeout'],'Mean Task Completion Time in [s]',.27,2)
    # means3D, means2D, stdev2D, stdev3D = [], [], [],[]
@@ -628,7 +632,7 @@ if (Do_Performance_LS):
 #    FinalStatistics.plotBarChartWithStdDevDouble(12, means2D, means3D, stdev2D, stdev3D,  ['ul_c', 'ul_i', 'ul_t',   'uc_c', 'uc_i','uc_t',  'ur_c', 'ur_i', 'ur_t',  'dr_c', 'dr_i','dr_t'],'Mean Task Completion Time in [s]', 0.27,2)
 #    means3D, means2D, stdev2D, stdev3D = [], [], [],[]
     
-    FinalStatistics.plotBarChartWithStdDevDouble(15, means2D, means3D, stdev2D, stdev3D,  ['ul_c', 'ul_i', 'ul_t',   'uc_c', 'uc_i','uc_t',  'ur_c', 'ur_i', 'ur_t',  'dr_c', 'dr_i','dr_t', 't_c','t_i','t_t',],'Mean Task Completion Time in [s]',.3, 2, 16, 12)
+    FinalStatistics.plotBarChartWithStdDevDouble(14, means2D, means3D, stdev2D, stdev3D,  ['ul_c', 'ul_i', '',   'uc_c', 'uc_i','',  'ur_c', 'ur_i', '',  'dr_c', 'dr_i','', 't_c','t_i'],'Mean Task Completion Time in [s]',.3, 1.4, 16, 12)
     means3D, means2D, stdev2D, stdev3D = [], [], [],[]
 
 
@@ -708,7 +712,7 @@ if (Do_Performance_LS):
     
 
     
-    FinalStatistics.plotBarChartWithStdDevDouble(14, means2D, means3D, stdev2D, stdev3D,  ['ul_c', 'ul_i', '',   'uc_c', 'uc_i','',  'ur_c', 'ur_i', '',  'dr_c', 'dr_i','','t_c', 't_i', ''],'Mean Count of Items', 0.27,2,16,12, True)
+    FinalStatistics.plotBarChartWithStdDevDouble(14, means2D, means3D, stdev2D, stdev3D,  ['ul_c', 'ul_i', '',   'uc_c', 'uc_i','',  'ur_c', 'ur_i', '',  'dr_c', 'dr_i','','t_c', 't_i', ''],'Mean Count of Items', 0.27,1.4,16,12, True)
     means3D, means2D, stdev2D, stdev3D = [], [], [],[]
  
 

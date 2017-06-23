@@ -23,7 +23,7 @@ def CalcStatForOneArea(area_mean_stdev, current_area, combined_list_string, fina
     for j in range (0, length):
         if (tmpList012[j] == 0): #timeout
             area_mean_stdev.get(final_t)[3]+=1
-            tmplist_t.append(tmpListTimes [j])
+            tmplist_c.append(tmpListTimes [j])
 
         elif (tmpList012[j] == 1): #correct
             area_mean_stdev.get(final_c)[3]+=1
@@ -45,10 +45,10 @@ def CalcStatForOneArea(area_mean_stdev, current_area, combined_list_string, fina
     normality = scipy.stats.shapiro(tmplist_c)
     area_mean_stdev.update({final_c : [mean, stdev,normality,len(tmplist_c)]})
     
-    mean = statistics.mean(tmplist_t)
-    stdev = statistics.stdev(tmplist_t)
-    normality = scipy.stats.shapiro(tmplist_t)
-    area_mean_stdev.update({final_t : [mean, stdev,normality, len(tmplist_t)]})
+#    mean = statistics.mean(tmplist_t)
+#    stdev = statistics.stdev(tmplist_t)
+#    normality = scipy.stats.shapiro(tmplist_t)
+#    area_mean_stdev.update({final_t : [mean, stdev,normality, len(tmplist_t)]})
     
     return [tmplist_c, tmplist_i, tmplist_t] #correct, incorrect, timeout
     

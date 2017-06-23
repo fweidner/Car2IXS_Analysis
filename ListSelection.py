@@ -269,9 +269,9 @@ def CalcGlobalStats():
     normality = scipy.stats.normaltest(tmpIncorrect)
     global_mean_stdev.update({'incorrect' : [mean, stdev, normality, missed]})
     
-    GlobalResponseTimeList[0] = tmpCorrect
+    GlobalResponseTimeList[0] = tmpCorrect+tmpTimeOut
     GlobalResponseTimeList[1] = tmpIncorrect
-    GlobalResponseTimeList[2] = tmpTimeOut
+    GlobalResponseTimeList[2] =[]# tmpTimeOut
     
 def PrintGlobalStats():
     print ('\tGlobal response time stats:' )
@@ -289,15 +289,14 @@ def CalcAreaStats(con = '', task = ''):
     global AreaResponseTimeLists 
     
     
-    listul = ListSelection_Helper.CalcStatForOneArea(area_mean_stdev, area_ul, 'combined_list_ul', 'ul_c', 'ul_t', 'ul_i')
-    AreaResponseTimeLists.update({'ul' : listul})
+    listul = ListSelection_Helper.CalcStatForOneArea(area_mean_stdev, area_ul, 'combined_list_ul', 'ul_c', 'ul_t', 'ul_i')    
     listur = ListSelection_Helper.CalcStatForOneArea(area_mean_stdev, area_ur, 'combined_list_ur', 'ur_c', 'ur_t', 'ur_i')
-    AreaResponseTimeLists.update({'ur' : listur})
     listuc = ListSelection_Helper.CalcStatForOneArea(area_mean_stdev, area_uc, 'combined_list_uc', 'uc_c', 'uc_t', 'uc_i')
-    AreaResponseTimeLists.update({'uc' : listuc})
     listdr = ListSelection_Helper.CalcStatForOneArea(area_mean_stdev, area_dr, 'combined_list_dr', 'dr_c', 'dr_t', 'dr_i')
     AreaResponseTimeLists.update({'dr' : listdr})
-
+    AreaResponseTimeLists.update({'ul' : listul})
+    AreaResponseTimeLists.update({'uc' : listuc})
+    AreaResponseTimeLists.update({'ur' : listur})
     
 def PrintAreaStats(con = ''):
     global area_mean_stdev
