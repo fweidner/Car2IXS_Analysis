@@ -379,7 +379,7 @@ Do_SSQ = False
 
 #Do_Distance_LS = True
 #Do_Distance_CD = True
-#Do_Performance_LS = True
+Do_Performance_LS = True
 #Do_Performance_CD = True
 Do_SSQ = True
 

@@ -22,13 +22,13 @@ def CalcStatForOneArea(area_mean_stdev, current_area, combined_list_string, fina
     
     for j in range (0, length):
         if (tmpList012[j] == 0): #timeout
-                area_mean_stdev.get(final_t)[3]+=1
-                tmplist_t.append(tmpListTimes [j])
+            area_mean_stdev.get(final_t)[3]+=1
+            tmplist_t.append(tmpListTimes [j])
 
         elif (tmpList012[j] == 1): #correct
             area_mean_stdev.get(final_c)[3]+=1
             tmplist_c.append(tmpListTimes [j])
-             
+
         elif (tmpList012[j] ==2): #incorrect
             area_mean_stdev.get(final_i)[3]+=1
             tmplist_i.append(tmpListTimes [j])
