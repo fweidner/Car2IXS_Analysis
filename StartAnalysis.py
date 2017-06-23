@@ -377,19 +377,19 @@ Do_Performance_LS = False
 Do_Performance_CD = False
 Do_SSQ = False
 
-Do_Distance_LS = True
-Do_Distance_CD = True
-Do_Performance_LS = True
+#Do_Distance_LS = True
+#Do_Distance_CD = True
+#Do_Performance_LS = True
 Do_Performance_CD = True
-Do_SSQ = True
+#Do_SSQ = True
 
 
 
 
 print ('########### 3D List #############')
-#path = r'C:\Users\flarion\CloudStation\Study\Logs\3D' 
-path = r'D:\CloudStation\Study\Logs\3D'
-path = r'I:\CloudStation\Study\Logs\3D'
+path = r'C:\Users\flarion\CloudStation\Study\Logs\3D' 
+#path = r'D:\CloudStation\Study\Logs\3D'
+#path = r'I:\CloudStation\Study\Logs\3D'
 
 if (Do_Distance_LS):
     CalcDistance(path, '3D', 'LS')
@@ -397,27 +397,27 @@ if (Do_Performance_LS):
     CalcListSelection(path, '3D')
 
 print ('########### 2D List #############')
-#path = r'C:\Users\flarion\CloudStation\Study\Logs\2D' 
-path = r'D:\CloudStation\Study\Logs\2D'
-path = r'I:\CloudStation\Study\Logs\2D'
+path = r'C:\Users\flarion\CloudStation\Study\Logs\2D' 
+#path = r'D:\CloudStation\Study\Logs\2D'
+#path = r'I:\CloudStation\Study\Logs\2D'
 if (Do_Distance_LS):
     CalcDistance(path, '2D', 'LS')
 if (Do_Performance_LS):
     CalcListSelection(path,'2D')
 
 print ('########### 3D Change #############')
-#path = r'C:\Users\flarion\CloudStation\Study\LogsWD\3D' 
-path = r'D:\CloudStation\Study\Logs\3D'
-path = r'I:\CloudStation\Study\Logs\3D'
+path = r'C:\Users\flarion\CloudStation\Study\LogsWD\3D' 
+#path = r'D:\CloudStation\Study\Logs\3D'
+#path = r'I:\CloudStation\Study\Logs\3D'
 if (Do_Distance_CD):
     CalcDistance(path, '2D', 'CD')
 if (Do_Performance_CD):
     CalcChangeDetection(path, '3D')
 
 print ('########### 2D Change #############')
-#path = r'C:\Users\flarion\CloudStation\Study\LogsWD\2D' 
-path = r'D:\CloudStation\Study\Logs\2D'
-path = r'I:\CloudStation\Study\Logs\2D'
+path = r'C:\Users\flarion\CloudStation\Study\LogsWD\2D' 
+#path = r'D:\CloudStation\Study\Logs\2D'
+#path = r'I:\CloudStation\Study\Logs\2D'
 if (Do_Distance_CD):
     CalcDistance(path, '2D', 'CD')
 if (Do_Performance_CD):
@@ -523,7 +523,7 @@ if (Do_Performance_CD):
 #    FinalStatistics.plotBarChartWithStdDevDouble(3, means2D, means3D, stdev2D, stdev3D,  ['c', 'i','m'],'Mean Count of Items')
 #    means3D, means2D, stdev2D, stdev3D = [], [], [],[]
 
-    FinalStatistics.plotBarChartWithStdDevDouble(15, means2D, means3D, stdev2D, stdev3D,  ['ul_c', 'ul_i', 'ul_t',   'uc_c', 'uc_i','uc_t',  'ur_c', 'ur_i', 'ur_t',  'dr_c', 'dr_i','dr_t',    't_c','t_i','t_t'],'Mean Count of Items',0.27, 2, 16, 13)
+    FinalStatistics.plotBarChartWithStdDevDouble(15, means2D, means3D, stdev2D, stdev3D,  ['ul_c', 'ul_i', 'ul_t',   'uc_c', 'uc_i','uc_t',  'ur_c', 'ur_i', 'ur_t',  'dr_c', 'dr_i','dr_t',    't_c','t_i','t_t'],'Mean Count of Items',0.3, 1.5, 16, 13, True)
     means3D, means2D, stdev2D, stdev3D = [], [], [],[]
 
      
