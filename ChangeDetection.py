@@ -519,8 +519,8 @@ def GetList_OverallCount():
     
     for item in countsCD:
         tmpListCorrect.append(countsCD.get(item)[2])    
-        tmpListWrong.append(countsCD.get(item)[3])    
-        tmpListMissed.append(countsCD.get(item)[4])    
+        tmpListWrong.append((countsCD.get(item)[3]+countsCD.get(item)[4])/2)    
+        #tmpListWrong.append(countsCD.get(item)[4])    
         
     return tmpListCorrect, tmpListWrong, tmpListMissed
     
@@ -556,8 +556,8 @@ def GetList_AreaCount(area):
         
     for item in countsCD:
         tmpListCorrect.append(countsCD.get(item)[i])    
-        tmpListWrong.append(countsCD.get(item)[j])    
-        tmpListMissed.append(countsCD.get(item)[k])    
+        tmpListWrong.append(statistics.mean([countsCD.get(item)[j],countsCD.get(item)[k]]))    
+        #tmpListWrong.append(countsCD.get(item)[k])    
     
     #print (str(tmpListMissed))
     
