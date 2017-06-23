@@ -389,7 +389,7 @@ Do_Performance_CD = True
 print ('########### 3D List #############')
 path = r'C:\Users\flarion\CloudStation\Study\Logs\3D' 
 #path = r'D:\CloudStation\Study\Logs\3D'
-#path = r'I:\CloudStation\Study\Logs\3D'
+path = r'I:\CloudStation\Study\Logs\3D'
 
 if (Do_Distance_LS):
     CalcDistance(path, '3D', 'LS')
@@ -399,7 +399,7 @@ if (Do_Performance_LS):
 print ('########### 2D List #############')
 path = r'C:\Users\flarion\CloudStation\Study\Logs\2D' 
 #path = r'D:\CloudStation\Study\Logs\2D'
-#path = r'I:\CloudStation\Study\Logs\2D'
+path = r'I:\CloudStation\Study\Logs\2D'
 if (Do_Distance_LS):
     CalcDistance(path, '2D', 'LS')
 if (Do_Performance_LS):
@@ -408,7 +408,7 @@ if (Do_Performance_LS):
 print ('########### 3D Change #############')
 path = r'C:\Users\flarion\CloudStation\Study\LogsWD\3D' 
 #path = r'D:\CloudStation\Study\Logs\3D'
-#path = r'I:\CloudStation\Study\Logs\3D'
+path = r'I:\CloudStation\Study\Logs\3D'
 if (Do_Distance_CD):
     CalcDistance(path, '2D', 'CD')
 if (Do_Performance_CD):
@@ -417,7 +417,7 @@ if (Do_Performance_CD):
 print ('########### 2D Change #############')
 path = r'C:\Users\flarion\CloudStation\Study\LogsWD\2D' 
 #path = r'D:\CloudStation\Study\Logs\2D'
-#path = r'I:\CloudStation\Study\Logs\2D'
+path = r'I:\CloudStation\Study\Logs\2D'
 if (Do_Distance_CD):
     CalcDistance(path, '2D', 'CD')
 if (Do_Performance_CD):

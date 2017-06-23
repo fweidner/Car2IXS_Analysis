@@ -32,14 +32,14 @@ def CalcNonParametric_MannWhitneyWithShapiro(list1, list2, my_alternative='two-s
         print ('\t\tnormality list2 (Shapiro) = ' + str(scipy.stats.shapiro(list2)))
     print('\t\t' + str(scipy.stats.mannwhitneyu(list1, list2, alternative=my_alternative)))
     
-    meanl1 = statistics.mean(list1)
-    meanl2 = statistics.mean(list2)
+    meanl1 = statistics.median(list1)
+    meanl2 = statistics.median(list2)
     
     stdevl1 = statistics.stdev(list1)
     stdevl2 = statistics.stdev(list2)
     
-    print ('\t\tMean l1 : ' + str(statistics.mean(list1)) + '\tStDev l1: ' + str(statistics.stdev(list1)))
-    print ('\t\tMean l2 : ' + str(statistics.mean(list2))+ '\tStDev l2: ' + str(statistics.stdev(list2)))
+    print ('\t\tMean l1 : ' + str(statistics.mean(list1)) + '\tStDev l1: ' + str(statistics.stdev(list1)) + "\tN = "+str(len(list1)))
+    print ('\t\tMean l2 : ' + str(statistics.mean(list2)) + '\tStDev l2: ' + str(statistics.stdev(list2)) + "\tN = "+str(len(list2)))
     
     if (printNorm):
        print (str(len(list1)))
