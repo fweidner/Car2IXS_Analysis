@@ -144,4 +144,4 @@ def plotBarChartWithStdDevDouble(n, means1, means2, stdev1, stdev2, axislist, ax
         autolabel(rects2)
 
     #fig.autofmt_xdate()
-    ax.set_xticklabels(ax.xaxis.get_majorticklabels(), rotation=45)
+#    ax.set_xticklabels(ax.xaxis.get_majorticklabels(), rotation=45)

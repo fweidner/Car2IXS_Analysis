@@ -379,9 +379,9 @@ Do_SSQ = False
 
 #Do_Distance_LS = True
 #Do_Distance_CD = True
-Do_Performance_LS = True
+#Do_Performance_LS = True
 #Do_Performance_CD = True
-#Do_SSQ = True
+Do_SSQ = True
 
 
 
@@ -632,7 +632,7 @@ if (Do_Performance_LS):
 #    FinalStatistics.plotBarChartWithStdDevDouble(12, means2D, means3D, stdev2D, stdev3D,  ['ul_c', 'ul_i', 'ul_t',   'uc_c', 'uc_i','uc_t',  'ur_c', 'ur_i', 'ur_t',  'dr_c', 'dr_i','dr_t'],'Mean Task Completion Time in [s]', 0.27,2)
 #    means3D, means2D, stdev2D, stdev3D = [], [], [],[]
     
-    FinalStatistics.plotBarChartWithStdDevDouble(14, means2D, means3D, stdev2D, stdev3D,  ['ul_c', 'ul_i', '',   'uc_c', 'uc_i','',  'ur_c', 'ur_i', '',  'dr_c', 'dr_i','', 't_c','t_i'],'Mean Task Completion Time in [s]',.3, 1.4, 16, 12)
+    FinalStatistics.plotBarChartWithStdDevDouble(14, means2D, means3D, stdev2D, stdev3D,  ['ul_c', 'ul_i', '',   'uc_c', 'uc_i','',  'ur_c', 'ur_i', '',  'dr_c', 'dr_i','', 't_c','t_i'],'Mean Task Completion Time in [s]',.3, 1.4, 16, 9)
     means3D, means2D, stdev2D, stdev3D = [], [], [],[]
 
 
@@ -712,7 +712,7 @@ if (Do_Performance_LS):
     
 
     
-    FinalStatistics.plotBarChartWithStdDevDouble(14, means2D, means3D, stdev2D, stdev3D,  ['ul_c', 'ul_i', '',   'uc_c', 'uc_i','',  'ur_c', 'ur_i', '',  'dr_c', 'dr_i','','t_c', 't_i', ''],'Mean Count of Items', 0.27,1.4,16,12, True)
+    FinalStatistics.plotBarChartWithStdDevDouble(14, means2D, means3D, stdev2D, stdev3D,  ['ul_c', 'ul_i', '',   'uc_c', 'uc_i','',  'ur_c', 'ur_i', '',  'dr_c', 'dr_i','','t_c', 't_i', ''],'Mean Count of Items', 0.27,1.4,16,9, True)
     means3D, means2D, stdev2D, stdev3D = [], [], [],[]
  
 
@@ -741,7 +741,7 @@ if (Do_SSQ):
     means3D = [16.9,33,34.6,32.2]
     stdev2D = [18.8,18.2,29.1,20.2]
     stdev3D = [15.3,21.6,32.3,23.3]
-    FinalStatistics.plotBarChartWithStdDevDouble(4, means2D, means3D, stdev2D, stdev3D,  ['Nausea', 'Oculomotor', 'Disorientation', 'Total'],'Mean Score')
+    FinalStatistics.plotBarChartWithStdDevDouble(4, means2D, means3D, stdev2D, stdev3D,  ['Nausea', 'Oculomotor', 'Disorientation', 'Total'],'Mean Score',.27,1.45)
     means3D, means2D, stdev2D, stdev3D = [], [], [], []
 
     #ls 
@@ -749,5 +749,5 @@ if (Do_SSQ):
     means2D = [21.0,23.8,23.2,26.2]
     stdev2D = [15.7,22.3,24.2,23.6]
     stdev3D = [15.3,21.6,32.3,23.3]
-    FinalStatistics.plotBarChartWithStdDevDouble(4, means2D, means3D, stdev2D, stdev3D,  ['Nausea', 'Oculomotor', 'Disorientation', 'Total'],'Mean Score')
+    FinalStatistics.plotBarChartWithStdDevDouble(4, means2D, means3D, stdev2D, stdev3D,  ['Nausea', 'Oculomotor', 'Disorientation', 'Total'],'Mean Score',.27,1.45)
     means3D, means2D, stdev2D, stdev3D = [], [], [], []#
