@@ -451,38 +451,38 @@ def CalcGlobalAreaCountStats():
     dr_t = []
     
     for item in globalareacountstats:
-        ul_c.append(globalareacountstats.get(item)[0])#correct
-        ul_t.append(globalareacountstats.get(item)[1])#timeout
+        ul_c.append((globalareacountstats.get(item)[0] + globalareacountstats.get(item)[1])/2)#correct
+#        ul_c.append(globalareacountstats.get(item)[1])#timeout
         ul_i.append(globalareacountstats.get(item)[2])#wrong
     
-        uc_c.append(globalareacountstats.get(item)[4])
-        uc_t.append(globalareacountstats.get(item)[5])
+        uc_c.append((globalareacountstats.get(item)[4]+globalareacountstats.get(item)[5])/2)
+#        uc_c.append(globalareacountstats.get(item)[5])
         uc_i.append(globalareacountstats.get(item)[6])
         
-        ur_c.append(globalareacountstats.get(item)[8])
-        ur_t.append(globalareacountstats.get(item)[9])
+        ur_c.append((globalareacountstats.get(item)[8]+globalareacountstats.get(item)[9])/2)
+#        ur_c.append(globalareacountstats.get(item)[9])
         ur_i.append(globalareacountstats.get(item)[10])
         
-        dr_c.append(globalareacountstats.get(item)[12])
-        dr_t.append(globalareacountstats.get(item)[13])
+        dr_c.append((globalareacountstats.get(item)[12]+globalareacountstats.get(item)[13])/2)
+#        dr_c.append(globalareacountstats.get(item)[13])
         dr_i.append(globalareacountstats.get(item)[14])
     
     print ('\tArea count stats:')    
     
     ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(ul_c, '\t\tul_c: ')
     ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(ul_i, '\t\tul_i: ')
-    ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(ul_t, '\t\tul_t: ')
+#    ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(ul_t, '\t\tul_t: ')
     ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(uc_c, '\t\tuc_c: ')
     ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(uc_i, '\t\tuc_i: ')
-    ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(uc_t, '\t\tuc_t: ')
+#    ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(uc_t, '\t\tuc_t: ')
     ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(ur_c, '\t\tur_c: ')
     ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(ur_i, '\t\tur_i: ')
-    ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(ur_t, '\t\tur_t: ')
+#    ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(ur_t, '\t\tur_t: ')
     ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(dr_c, '\t\tdr_c: ')
     ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(dr_i, '\t\tdr_i: ')
-    ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(dr_t, '\t\tdr_t: ')
+#    ListSelection_Helper.PrintOneCalcGlobalAreaCountStats(dr_t, '\t\tdr_t: ')
     
-    AreaCountStats.update({'ul' : [ul_c, ul_t,ul_i]})
+    AreaCountStats.update({'ul' : [ul_c, ul_t, ul_i]})
     AreaCountStats.update({'uc' : [uc_c, uc_t, uc_i]})
     AreaCountStats.update({'ur' : [ur_c, ur_t, ur_i]})
     AreaCountStats.update({'dr' : [dr_c, dr_t, dr_i]})
