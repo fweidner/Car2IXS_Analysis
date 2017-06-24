@@ -32,6 +32,11 @@ responsetimes_uc = []
 responsetimes_ur = []
 responsetimes_dr = []
 
+responsetimes_uld = {}
+responsetimes_ucd = {}
+responsetimes_urd = {}
+responsetimes_drd = {}
+
 responsetimes_areas = {}
 
 globalCount_area = {} # aera : corr , wrong, missed
@@ -39,6 +44,8 @@ globalCount_area.update({'ul' : [0,0,0]})
 globalCount_area.update({'uc' : [0,0,0]})
 globalCount_area.update({'ur' : [0,0,0]})
 globalCount_area.update({'dr' : [0,0,0]})
+
+respTimeCDByParticipant = {}
 
 def Reset():
     global responsetimes_stat_total
@@ -52,6 +59,18 @@ def Reset():
     global responsetimes_uc
     global responsetimes_ul
     global responsetimes_ur
+    
+    global responsetimes_uld 
+    global responsetimes_ucd 
+    global responsetimes_urd 
+    global responsetimes_drd 
+    global respTimeCDByParticipant
+    
+    respTimeCDByParticipant = {}
+    responsetimes_uld = {}
+    responsetimes_ucd = {}
+    responsetimes_urd = {}
+    responsetimes_drd = {}
     
     responsetimes_stat_total = []
     responsetimes_total = []
@@ -70,21 +89,36 @@ def Reset():
     responsetimes_ur = []
     responsetimes_dr = []
 
-def CalcTime(t1, t2, responsetimes_cd):
+def CalcTime(t1, t2, responsetimes_cd, name =''):
     global currentarea
-    
+    global responsetimes_uld 
+    global responsetimes_ucd 
+    global responsetimes_urd 
+    global responsetimes_drd
     res = int(t2)-int(t1)
     responsetimes_cd.append(res)
     
     
     if (currentarea == 'ul'):
         responsetimes_ul.append(res)
+        if (name not in responsetimes_uld.keys()):
+            responsetimes_uld.update({name: []})
+        responsetimes_uld.get(name).append(res)
     elif (currentarea == 'uc'):
         responsetimes_uc.append(res)
+        if (name not in responsetimes_ucd.keys()):
+            responsetimes_ucd.update({name: []})
+        responsetimes_ucd.get(name).append(res)
     elif (currentarea == 'ur'):
         responsetimes_ur.append(res)
+        if (name not in responsetimes_urd.keys()):
+            responsetimes_urd.update({name: []})
+        responsetimes_urd.get(name).append(res)
     elif (currentarea == 'dr'):
         responsetimes_dr.append(res)
+        if (name not in responsetimes_drd.keys()):
+            responsetimes_drd.update({name: []})
+        responsetimes_drd.get(name).append(res)
     else:
         print ('huh ' + str(currentarea))
 
@@ -424,6 +458,11 @@ def UpdateAreaCountMissed(name =''):
 def GetResponseTimesForCorrectValues(spamreader_var, name ='',con=''):
     
     global countsCD
+    global respTimeCDByParticipant
+    global responsetimes_drd
+    global responsetimes_ucd
+    global responsetimes_uld
+    global responsetimes_urd
     
     bShouldPress = False
     bShouldCalcTime = False
@@ -439,7 +478,7 @@ def GetResponseTimesForCorrectValues(spamreader_var, name ='',con=''):
       #print (tmprow)
       #calc response time
       if (bShouldCalcTime):  
-          CalcTime(tmp_t1, tmp_t_response, responsetimes_cd)
+          CalcTime(tmp_t1, tmp_t_response, responsetimes_cd,name)
           bShouldCalcTime = False
           
     #time began
@@ -498,11 +537,22 @@ def GetResponseTimesForCorrectValues(spamreader_var, name ='',con=''):
  #   print ('ul_w' + str(countsCD.get(name)[6]))
   #  print ('ul_m' + str(countsCD.get(name)[7]))
 
-    MergeResponseTimes(responsetimes_cd)          
+    MergeResponseTimes(responsetimes_cd)     
+    if (len(responsetimes_cd)==0):
+        responsetimes_cd.append(0)
+    respTimeCDByParticipant.update({name: statistics.mean(responsetimes_cd)})  
     
 def GetList_OverallResponseTime():
     global responsetimes_total
-    return responsetimes_total
+    global respTimeCDByParticipant
+    
+    
+    tmpList = []
+    for item in respTimeCDByParticipant:
+        tmpList.append(respTimeCDByParticipant[item])
+    
+    
+    return tmpList
     
 def GetList_AreaResponseTime():
     global responsetimes_dr
@@ -510,7 +560,38 @@ def GetList_AreaResponseTime():
     global responsetimes_ul
     global responsetimes_ur
     
-    return responsetimes_ul, responsetimes_uc, responsetimes_ur, responsetimes_dr
+    global responsetimes_drd
+    global responsetimes_ucd
+    global responsetimes_uld
+    global responsetimes_urd
+    
+#    while(len(responsetimes_uld)<30):
+#        responsetimes_uld.update({'fill':[0]})
+#    while(len(responsetimes_ucd)<30):
+#        responsetimes_ucd.update({'fill':[0]})
+#    while(len(responsetimes_urd)<30):
+#        responsetimes_urd.update({'fill':[0]})
+#    while(len(responsetimes_drd)<30):
+#        responsetimes_drd.update({'fill':[0]})
+    
+    tmpListul = []
+    
+    for item in responsetimes_uld:
+        tmpListul.append(statistics.mean(responsetimes_uld[item]))
+    tmpListuc = []
+    for item in responsetimes_ucd:
+        tmpListuc.append(statistics.mean(responsetimes_ucd[item]))
+
+    tmpListur = []
+    for item in responsetimes_urd:
+        tmpListur.append(statistics.mean(responsetimes_urd[item]))
+
+    tmpListdr = []
+    for item in responsetimes_drd:
+        tmpListdr.append(statistics.mean(responsetimes_drd[item]))
+
+    
+    return tmpListul, tmpListuc, tmpListur, tmpListdr
  
 def GetList_OverallCount():
     tmpListCorrect =[]
