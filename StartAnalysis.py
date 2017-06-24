@@ -379,16 +379,16 @@ Do_SSQ = False
 
 #Do_Distance_LS = True
 #Do_Distance_CD = True
-#Do_Performance_LS = True
+Do_Performance_LS = True
 #Do_Performance_CD = True
-Do_SSQ = True
+#Do_SSQ = True
 
 
 
 
 print ('########### 3D List #############')
 path = r'C:\Users\flarion\CloudStation\Study\Logs\3D' 
-#path = r'D:\CloudStation\Study\Logs\3D'
+path = r'D:\CloudStation\Study\Logs\3D'
 #path = r'I:\CloudStation\Study\Logs\3D'
 
 if (Do_Distance_LS):
@@ -398,7 +398,7 @@ if (Do_Performance_LS):
 
 print ('########### 2D List #############')
 path = r'C:\Users\flarion\CloudStation\Study\Logs\2D' 
-#path = r'D:\CloudStation\Study\Logs\2D'
+path = r'D:\CloudStation\Study\Logs\2D'
 #path = r'I:\CloudStation\Study\Logs\2D'
 if (Do_Distance_LS):
     CalcDistance(path, '2D', 'LS')
@@ -407,7 +407,7 @@ if (Do_Performance_LS):
 
 print ('########### 3D Change #############')
 path = r'C:\Users\flarion\CloudStation\Study\LogsWD\3D' 
-#path = r'D:\CloudStation\Study\Logs\3D'
+path = r'D:\CloudStation\Study\Logs\3D'
 #path = r'I:\CloudStation\Study\Logs\3D'
 if (Do_Distance_CD):
     CalcDistance(path, '2D', 'CD')
@@ -416,7 +416,7 @@ if (Do_Performance_CD):
 
 print ('########### 2D Change #############')
 path = r'C:\Users\flarion\CloudStation\Study\LogsWD\2D' 
-#path = r'D:\CloudStation\Study\Logs\2D'
+path = r'D:\CloudStation\Study\Logs\2D'
 #path = r'I:\CloudStation\Study\Logs\2D'
 if (Do_Distance_CD):
     CalcDistance(path, '2D', 'CD')
@@ -454,7 +454,7 @@ if (Do_Performance_CD):
     means2D.append(mean2d), means3D.append(mean3d), stdev2D.append(stdev2d), stdev3D.append(stdev3d)
   
     
-    FinalStatistics.plotBarChartWithStdDevDouble(5,means2D, means3D, stdev2D, stdev3D,  ['ul', 'uc','ur','dr','t' ],'Mean Reaction Time in [ms]',0.27, 2, 16, 9, False, pos='lower right')
+    FinalStatistics.plotBarChartWithStdDevDouble(5,means2D, means3D, stdev2D, stdev3D,  ['ul', 'uc','ur','dr','t' ],'Median Reaction Time in [ms]',0.27, 2, 16, 9, False, pos='lower right')
     means3D, means2D, stdev2D, stdev3D = [], [], [],[]
 
     print()
@@ -467,9 +467,6 @@ if (Do_Performance_CD):
     print ('\tIncorrect:')
     mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_AreaCount_UL[1], List_3D_AreaCount_UL[1], 'two-sided')
     means2D.append(mean2d), means3D.append(mean3d), stdev2D.append(stdev2d), stdev3D.append(stdev3d)
-#    print ('\tMissed:')
-#    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_AreaCount_UL[2], List_3D_AreaCount_UL[2], 'two-sided')
-#    means2D.append(mean2d), means3D.append(mean3d), stdev2D.append(stdev2d), stdev3D.append(stdev3d)
   
     means2D.append(0), means3D.append(0), stdev2D.append(0), stdev3D.append(0)
     
@@ -480,10 +477,7 @@ if (Do_Performance_CD):
     print ('\tIncorrect:')
     mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_AreaCount_UC[1], List_3D_AreaCount_UC[1], 'two-sided')
     means2D.append(mean2d), means3D.append(mean3d), stdev2D.append(stdev2d), stdev3D.append(stdev3d)
-#    print ('\tMissed:')
-#    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_AreaCount_UC[2], List_3D_AreaCount_UC[2], 'two-sided')
-#    means2D.append(mean2d), means3D.append(mean3d), stdev2D.append(stdev2d), stdev3D.append(stdev3d)
-    
+
     means2D.append(0), means3D.append(0), stdev2D.append(0), stdev3D.append(0)
     
     print ('\tUR:')
@@ -493,9 +487,6 @@ if (Do_Performance_CD):
     print ('\tIncorrect:')
     mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_AreaCount_UR[1], List_3D_AreaCount_UR[1], 'two-sided')
     means2D.append(mean2d), means3D.append(mean3d), stdev2D.append(stdev2d), stdev3D.append(stdev3d)
-#    print ('\tMissed:')
-#    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_AreaCount_UR[2], List_3D_AreaCount_UR[2], 'two-sided')
-#    means2D.append(mean2d), means3D.append(mean3d), stdev2D.append(stdev2d), stdev3D.append(stdev3d)
     
     means2D.append(0), means3D.append(0), stdev2D.append(0), stdev3D.append(0)
     
@@ -506,12 +497,6 @@ if (Do_Performance_CD):
     print ('\tIncorrect:')
     mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_AreaCount_DR[1], List_3D_AreaCount_DR[1], 'two-sided')
     means2D.append(mean2d), means3D.append(mean3d), stdev2D.append(stdev2d), stdev3D.append(stdev3d)
-#    print ('\tMissed:')
-#    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_AreaCount_DR[2], List_3D_AreaCount_DR[2], 'two-sided')
-#    means2D.append(mean2d), means3D.append(mean3d), stdev2D.append(stdev2d), stdev3D.append(stdev3d)
-
-#    FinalStatistics.plotBarChartWithStdDevDouble(12, means2D, means3D, stdev2D, stdev3D,  ['ul_c', 'ul_i', 'ul_t',   'uc_c', 'uc_i','uc_t',  'ur_c', 'ur_i', 'ur_t',  'dr_c', 'dr_i','dr_t'],'Mean Count of Items')
-    #means3D, means2D, stdev2D, stdev3D = [], [], [],[]
 
     means2D.append(0), means3D.append(0), stdev2D.append(0), stdev3D.append(0)
     
@@ -523,17 +508,8 @@ if (Do_Performance_CD):
     print ('\tIncorrect:')
     mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_OverallCount_incorrect, List_3D_OverallCount_incorrect, 'two-sided')
     means2D.append(mean2d), means3D.append(mean3d), stdev2D.append(stdev2d), stdev3D.append(stdev3d)
-#    print ('\tMissed:')
-#    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_OverallCount_missed, List_3D_OverallCount_missed, 'two-sided')
-#    means2D.append(mean2d), means3D.append(mean3d), stdev2D.append(stdev2d), stdev3D.append(stdev3d)
-#    print()
- 
-    
-   
-#    FinalStatistics.plotBarChartWithStdDevDouble(3, means2D, means3D, stdev2D, stdev3D,  ['c', 'i','m'],'Mean Count of Items')
-#    means3D, means2D, stdev2D, stdev3D = [], [], [],[]
 
-    FinalStatistics.plotBarChartWithStdDevDouble(14, means2D, means3D, stdev2D, stdev3D,  ['ul_c', 'ul_i', '',  'uc_c', 'uc_i', '',  'ur_c', 'ur_i',  '', 'dr_c', 'dr_i', '', 't_c','t_i'],'Mean Count of Items',0.4, 2, 16, 12, True, 'best', False)
+    FinalStatistics.plotBarChartWithStdDevDouble(14, means2D, means3D, stdev2D, stdev3D,  ['ul_c', 'ul_i', '',  'uc_c', 'uc_i', '',  'ur_c', 'ur_i',  '', 'dr_c', 'dr_i', '', 't_c','t_i'],'Median Count of Items',0.4, 1.45, 16, 12, True, 'best', False)
     means3D, means2D, stdev2D, stdev3D = [], [], [],[]
 
      
@@ -572,7 +548,7 @@ if (Do_Performance_LS):
     mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcParametric_WelshWithShapiroAndLevene(AreaResponseTimeLists_2D.get('ul')[0], AreaResponseTimeLists_3D.get('ul')[0], False)
     means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
     print ('\t\tIncorrect:')
-    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('ul')[1], AreaResponseTimeLists_3D.get('ul')[1], 'two-sided', False)
+    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcParametric_WelshWithShapiroAndLevene(AreaResponseTimeLists_2D.get('ul')[1], AreaResponseTimeLists_3D.get('ul')[1], False)
     means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
 #    print ('\t\tMissed:')
 #    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('ul')[2], AreaResponseTimeLists_3D.get('ul')[2], 'two-sided', False)
@@ -580,10 +556,10 @@ if (Do_Performance_LS):
     means2D.append(0), means3D.append(0), stdev2D.append(0), stdev3D.append(0)
     print ('\tUC:')
     print ('\t\tCorrect:')
-    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('uc')[0], AreaResponseTimeLists_3D.get('uc')[0], 'two-sided', False)
+    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcParametric_WelshWithShapiroAndLevene(AreaResponseTimeLists_2D.get('uc')[0], AreaResponseTimeLists_3D.get('uc')[0], False)
     means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
     print ('\t\tIncorrect:')
-    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('uc')[1], AreaResponseTimeLists_3D.get('uc')[1], 'two-sided', False)
+    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcParametric_WelshWithShapiroAndLevene(AreaResponseTimeLists_2D.get('uc')[1], AreaResponseTimeLists_3D.get('uc')[1], False)
     means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
 #    print ('\t\tMissed:')
 #    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('uc')[2], AreaResponseTimeLists_3D.get('uc')[2], 'two-sided', False)
@@ -594,7 +570,7 @@ if (Do_Performance_LS):
     mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcParametric_WelshWithShapiroAndLevene(AreaResponseTimeLists_2D.get('ur')[0], AreaResponseTimeLists_3D.get('ur')[0], False)
     means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
     print ('\t\tIncorrect:')
-    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('ur')[1], AreaResponseTimeLists_3D.get('ur')[1], 'two-sided', False)
+    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcParametric_WelshWithShapiroAndLevene(AreaResponseTimeLists_2D.get('ur')[1], AreaResponseTimeLists_3D.get('ur')[1], False)
     means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
 #    print ('\t\tMissed:')
 #    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(AreaResponseTimeLists_2D.get('ur')[2], AreaResponseTimeLists_3D.get('ur')[2], 'two-sided', False)
@@ -616,10 +592,10 @@ if (Do_Performance_LS):
     print ('######################################################')
     print ("Statistics for Global Task Completion Time: ")
     print('\tCorrect')
-    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_ResponseTime_Global_LS[0], List_3D_ResponseTime_Global_LS[0], 'two-sided', False)
+    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcParametric_WelshWithShapiroAndLevene(List_2D_ResponseTime_Global_LS[0], List_3D_ResponseTime_Global_LS[0],False)
     means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
     print('\tIncorrect')
-    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_ResponseTime_Global_LS[1], List_3D_ResponseTime_Global_LS[1], 'two-sided', False)
+    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcParametric_WelshWithShapiroAndLevene(List_2D_ResponseTime_Global_LS[1], List_3D_ResponseTime_Global_LS[1], False)
     means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
 #    print('\tTimeout')
 #    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_ResponseTime_Global_LS[2], List_3D_ResponseTime_Global_LS[2], 'two-sided', False)
@@ -688,6 +664,7 @@ if (Do_Performance_LS):
     
     #FinalStatistics.plotBarChartWithStdDevDouble(12, means2D, means3D, stdev2D, stdev3D,  ['ul_c', 'ul_i', 'ul_t',   'uc_c', 'uc_i','uc_t',  'ur_c', 'ur_i', 'ur_t',  'dr_c', 'dr_i','dr_t'],'Mean Count of Items', 0.27,2)
     #means3D, means2D, stdev2D, stdev3D = [], [], [],[]
+    
     means2D.append(0), means3D.append(0), stdev2D.append(0), stdev3D.append(0)
  
     print ('######################################################')
@@ -737,17 +714,17 @@ if (Do_Distance_LS):
 
 if (Do_SSQ):
     #cd
-    means2D = [20.7,28,27.4,29.0]
-    means3D = [16.9,33,34.6,32.2]
-    stdev2D = [18.8,18.2,29.1,20.2]
-    stdev3D = [15.3,21.6,32.3,23.3]
-    FinalStatistics.plotBarChartWithStdDevDouble(4, means2D, means3D, stdev2D, stdev3D,  ['Nausea', 'Oculomotor', 'Disorientation', 'Total'],'Mean Score',.27,1.45)
+    means2D = [19.1, 30.3, 20.9, 26.2]
+    means3D = [19.1, 30.3, 27.8, 29.9]
+    stdev2D = [0,0,0,0]
+    stdev3D = [0,0,0,0]
+    FinalStatistics.plotBarChartWithStdDevDouble(4, means2D, means3D, stdev2D, stdev3D,  ['Nausea', 'Oculomotor', 'Disorientation', 'Total'],'Median SSQ Score',.27,1.45)
     means3D, means2D, stdev2D, stdev3D = [], [], [], []
 
     #ls 
-    means3D = [15.7,22.3,24.2,23.6]
-    means2D = [21.0,23.8,23.2,26.2]
-    stdev2D = [15.7,22.3,24.2,23.6]
-    stdev3D = [15.3,21.6,32.3,23.3]
-    FinalStatistics.plotBarChartWithStdDevDouble(4, means2D, means3D, stdev2D, stdev3D,  ['Nausea', 'Oculomotor', 'Disorientation', 'Total'],'Mean Score',.27,1.45)
+    means2D = [19.1, 18.95, 13.9, 18.7]
+    means3D = [9.54, 15.16, 13.92, 15]
+    stdev2D = [0,0,0,0]
+    stdev3D = [0,0,0,0]
+    FinalStatistics.plotBarChartWithStdDevDouble(4, means2D, means3D, stdev2D, stdev3D,  ['Nausea', 'Oculomotor', 'Disorientation', 'Total'],'Median SSQ Score',.27,1.45)
     means3D, means2D, stdev2D, stdev3D = [], [], [], []#
