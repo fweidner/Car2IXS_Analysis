@@ -51,6 +51,8 @@ AreaResponseTimeLists = {'' : [[],[],[]]}
 GlobalCountStats = {'':[]}
 AreaCountStats = {}
 
+
+correctDictForRespTimes = {}  # name : [[],[]   ,[],[],   [],[],   [],[]]
 def Reset():
     global name_performance
     global area_ul
@@ -73,6 +75,9 @@ def Reset():
     global globalarearesponsetimestats
     global AreaCountStats
     
+    global correctDictForRespTimes
+
+
     AreaCountStats = {}
     name_performance = {}
     
@@ -93,6 +98,9 @@ def Reset():
     AreaResponseTimeLists = {}
     
     GlobalCountStats = {'':[]}    
+    
+    correctDictForRespTimes = {}
+
 
 def CreateTriples(tripels):
     tripels.update({'0' : ['Juice', 'Dog', 'Flower']})
@@ -504,13 +512,51 @@ def UpdateAreaStatsForGlobal(areas, BP_name, responsetime, isCorrect):
         
 def UpdateAreaStats(areas, BP_name, responsetime, isCorrect,name):
     #print (BP_name)
+    
+    global correctDictForRespTimes
     if (responsetime>20000):
        responsetime=20000
    
     UpdateAreaStatsForGlobal(areas, BP_name, responsetime, isCorrect)
     UpdateAreaStatsForLocal(areas, BP_name, responsetime, isCorrect, name)
+    
+    if (name not in correctDictForRespTimes.keys()):
+        correctDictForRespTimes.update({name : [[],[],  [],[], [],[],  [],[],  [],[]]})# 01  23  45  67  89
 
+    if (str(BP_name) in area_ul.keys()):
+        #print ('yayul')     
+        if (isCorrect == 1 or isCorrect == 0):
+            correctDictForRespTimes.get(name)[0].append(int(responsetime))
+        else:
+            correctDictForRespTimes.get(name)[1].append(responsetime)
+    elif (str(BP_name) in area_uc.keys()):
+        #print ('yayuc')
+        if (isCorrect == 1 or isCorrect == 0):
+            correctDictForRespTimes.get(name)[2].append(responsetime)
+        else:
+            correctDictForRespTimes.get(name)[3].append(responsetime)
+    elif (str(BP_name) in area_ur.keys()):
+        #print ('yayur')
+        if (isCorrect == 1 or isCorrect == 0):
+            correctDictForRespTimes.get(name)[4].append(responsetime)
 
+        else:
+            correctDictForRespTimes.get(name)[5].append(responsetime)
+    elif (str(BP_name) in area_dr.keys()):
+        #print ('yaydr')
+        if (isCorrect == 1 or isCorrect == 0):
+            correctDictForRespTimes.get(name)[6].append(responsetime)
+        else:
+            correctDictForRespTimes.get(name)[7].append(responsetime)
+    else:
+        print ('naaay: ' + str(BP_name))
+  
+        
+    if (isCorrect == 1 or isCorrect == 0):
+        correctDictForRespTimes.get(name)[8].append(responsetime)
+    else:
+        correctDictForRespTimes.get(name)[9].append(responsetime)
+        
   
 def PrintSummary(CountErrorWrongItem,CountErrorListNotFinished,CountTimeCorrect,CountCorrect,CountTimeError,CountNewActiveListStr):
     TotalErrorWithTimouts = CountErrorWrongItem + CountErrorListNotFinished + CountTimeCorrect
@@ -613,7 +659,7 @@ def CalcListStats(spamreader_var, con, name):
                 
             else: #increase missed error counter                
                 CountErrorListNotFinished +=1
-               
+
             tripellistitem+=1 #advance to next triple for correctness check
             SelectTextCount = 0 #reset text count (three times selected)
             tmpSelectedItems =  [] #reset selected items
@@ -642,7 +688,20 @@ def CalcListStats(spamreader_var, con, name):
     
 def GetGlobalResponseTimeList():
     global GlobalResponseTimeList
-    return GlobalResponseTimeList
+    
+    listtc=[]
+    listti=[]
+    
+    print(len(correctDictForRespTimes))
+    for item in correctDictForRespTimes:
+        
+        if (len(correctDictForRespTimes.get(item)[8]) !=0):
+            listtc.append(statistics.mean(correctDictForRespTimes.get(item)[8]))
+        if (len(correctDictForRespTimes.get(item)[9]) !=0):
+            listti.append(statistics.mean(correctDictForRespTimes.get(item)[9]))
+
+  
+    return [listtc, listti]
     
 def getMeanValList(tmpList):
     res = 0
@@ -653,8 +712,47 @@ def getMeanValList(tmpList):
 
 def GetAreaResponseTimeList():
     global AreaResponseTimeLists 
+    global correctDictForRespTimes
+
+    newAreaResponseTimeList = {}
+    listulc=[]
+    listucc=[]
+    listurc=[]
+    listdrc=[]
+    listuli=[]
+    listuci=[]
+    listuri=[]
+    listdri=[]
     
-    return AreaResponseTimeLists 
+    for item in correctDictForRespTimes:
+        
+        if (len(correctDictForRespTimes.get(item)[0]) !=0):
+            listulc.append(statistics.mean(correctDictForRespTimes.get(item)[0]))
+        if (len(correctDictForRespTimes.get(item)[1]) !=0):
+            listuli.append(statistics.mean(correctDictForRespTimes.get(item)[1]))
+
+        if (len(correctDictForRespTimes.get(item)[2]) !=0):
+            listucc.append(statistics.mean(correctDictForRespTimes.get(item)[2]))
+        if (len(correctDictForRespTimes.get(item)[3]) !=0):
+            listuci.append(statistics.mean(correctDictForRespTimes.get(item)[3]))
+
+        if (len(correctDictForRespTimes.get(item)[4]) !=0):
+            listurc.append(statistics.mean(correctDictForRespTimes.get(item)[4]))
+        if (len(correctDictForRespTimes.get(item)[5]) !=0):
+            listuri.append(statistics.mean(correctDictForRespTimes.get(item)[5]))
+
+        if (len(correctDictForRespTimes.get(item)[6]) !=0):
+            listdrc.append(statistics.mean(correctDictForRespTimes.get(item)[6]))
+        if (len(correctDictForRespTimes.get(item)[7]) !=0):
+            listdri.append(statistics.mean(correctDictForRespTimes.get(item)[7]))
+        
+    newAreaResponseTimeList.update({'ul': [listulc, listuli]})
+    newAreaResponseTimeList.update({'uc': [listucc, listuci]})
+    newAreaResponseTimeList.update({'ur': [listurc, listuri]})
+    newAreaResponseTimeList.update({'dr': [listdrc, listdri]})
+    
+        
+    return newAreaResponseTimeList 
 
 def GetGlobalCountLists():
     global GlobalCountStats
