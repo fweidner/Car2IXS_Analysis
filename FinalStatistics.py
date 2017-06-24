@@ -64,7 +64,7 @@ def CalcNonParametric_MannWhitneyWithShapiro(list1, list2, my_alternative='two-s
     return val1, stdevl1, val2, stdevl2
 
 def CalcParametric_WelshWithShapiroAndLevene(list1, list2, printHint=False, printNorm=False):
-    if (printNorm):
+    if (True):
         print ('\t\tnormality list1 (Shapiro) = ' + str(scipy.stats.shapiro(list1)))
         print ('\t\tnormality list2 (Shapiro) = ' + str(scipy.stats.shapiro(list2)) )
  
@@ -124,10 +124,10 @@ def plotBarChartWithStdDevDouble(n, means1, means2, stdev1, stdev2, axislist, ax
     ax = fig.add_subplot(111)
     
     yvals = means1#[4, 9,6,9,2]
-    rects1 = ax.bar(left=ind+width, yerr = stdev1,height=yvals, width=newwidth,  ecolor='black', error_kw=dict(lw=1, capsize=2, capthick=1), color='#4472c4',edgecolor='none',)
+    rects1 = ax.bar(left=ind+width, height=yvals, width=newwidth,  ecolor='black', error_kw=dict(lw=1, capsize=2, capthick=1), color='#4472c4',edgecolor='none',)
     
     zvals = means2#[1,2,21,1,2]
-    rects2 = ax.bar(left=ind+width*2, yerr = stdev2,height=zvals, width=newwidth,   ecolor='black',error_kw=dict(lw=1, capsize=3, capthick=1), color = '#ed7d31', edgecolor='none')#color='#D3D3D3')#, hatch='..')
+    rects2 = ax.bar(left=ind+width*2, height=zvals, width=newwidth,   ecolor='black',error_kw=dict(lw=1, capsize=3, capthick=1), color = '#ed7d31', edgecolor='none')#color='#D3D3D3')#, hatch='..')
     
     ax.set_ylabel(axistitle)
     ax.set_xticks(ind+width*vlabeloffset)

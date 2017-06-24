@@ -377,9 +377,9 @@ Do_Performance_LS = False
 Do_Performance_CD = False
 Do_SSQ = False
 
-#Do_Distance_LS = True
-#Do_Distance_CD = True
-Do_Performance_LS = True
+Do_Distance_LS = True
+Do_Distance_CD = True
+#Do_Performance_LS = True
 #Do_Performance_CD = True
 #Do_SSQ = True
 
@@ -522,14 +522,14 @@ if (Do_Distance_CD):
     print()
     print ('\tin [ms]:')
     print ('\t\tIn Target Zone:')
-    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcParametric_WelshWithShapiroAndLevene(List_2D_Times_CD[0], List_3D_Times_CD[0])
+    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_Times_CD[0], List_3D_Times_CD[0], 'two-sided')
     means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
     print ('\t\tOutside Target Zone:')
-    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcParametric_WelshWithShapiroAndLevene(List_2D_Times_CD[1], List_3D_Times_CD[1])
+    mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_Times_CD[1], List_3D_Times_CD[1], 'two-sided')
     means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
     print()
     
-    FinalStatistics.plotBarChartWithStdDevDouble(2, means2D, means3D, stdev2D, stdev3D,  ['In Target Zone', 'Outside Target Zone'],'Mean Times in [s]')
+    FinalStatistics.plotBarChartWithStdDevDouble(2, means2D, means3D, stdev2D, stdev3D,  ['In Target Zone', 'Outside Target Zone'],'Median Times in [s]')
     means3D, means2D, stdev2D, stdev3D = [], [], [], []
 
 
@@ -708,7 +708,7 @@ if (Do_Distance_LS):
     mean2d, stdev2d, mean3d, stdev3d = FinalStatistics.CalcNonParametric_MannWhitneyWithShapiro(List_2D_Times_LS[1], List_3D_Times_LS[1])
     means2D.append(mean2d/1000), means3D.append(mean3d/1000), stdev2D.append(stdev2d/1000), stdev3D.append(stdev3d/1000)
 
-    FinalStatistics.plotBarChartWithStdDevDouble(2, means2D, means3D, stdev2D, stdev3D,  ['In Target Zone', 'Outside Target Zone'],'Mean Times in [s]')
+    FinalStatistics.plotBarChartWithStdDevDouble(2, means2D, means3D, stdev2D, stdev3D,  ['In Target Zone', 'Outside Target Zone'],'Median Times in [s]')
     means3D, means2D, stdev2D, stdev3D = [], [], [], []
 
 
